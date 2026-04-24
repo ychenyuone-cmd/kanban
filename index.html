@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐄 景甜 · 内蒙古特产</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap');
+  body{font-family:'Noto Sans SC',sans-serif;min-height:100vh;background:linear-gradient(180deg,#c1e1f5 0%,#ddeec0 35%,#b6d79e 65%,#8bc07a 100%);color:#1a3a1a;overflow-x:hidden}
+  .clouds{position:fixed;top:0;left:0;right:0;height:200px;pointer-events:none;z-index:0;background:radial-gradient(ellipse 70px 30px at 8% 20%,rgba(255,255,255,0.35) 0%,transparent 100%),radial-gradient(ellipse 90px 35px at 30% 15%,rgba(255,255,255,0.30) 0%,transparent 100%),radial-gradient(ellipse 80px 28px at 55% 22%,rgba(255,255,255,0.28) 0%,transparent 100%),radial-gradient(ellipse 100px 32px at 78% 12%,rgba(255,255,255,0.32) 0%,transparent 100%),radial-gradient(ellipse 60px 25px at 95% 25%,rgba(255,255,255,0.25) 0%,transparent 100%)}
+  .hills{position:fixed;bottom:0;left:0;right:0;height:120px;pointer-events:none;z-index:0;background:radial-gradient(ellipse 250px 50px at 15% 100%,rgba(80,150,70,0.08) 0%,transparent 100%),radial-gradient(ellipse 350px 60px at 50% 100%,rgba(90,160,80,0.06) 0%,transparent 100%),radial-gradient(ellipse 200px 45px at 80% 100%,rgba(70,140,60,0.07) 0%,transparent 100%)}
+  .page-wrap{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:14px 20px 80px}
+  .top-bar{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.80);backdrop-filter:blur(12px);border-radius:60px;padding:8px 18px 8px 10px;margin-bottom:14px;box-shadow:0 2px 20px rgba(0,0,0,0.03);border:1px solid rgba(255,255,255,0.4)}
+  .brand{display:flex;align-items:center;gap:8px;flex-shrink:0}
+  .brand .icon{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#5CAA4E,#3B8B2E);display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 2px 8px rgba(74,139,74,0.12)}
+  .brand .txt{font-size:0.95rem;font-weight:800}
+  .brand .txt small{font-weight:400;font-size:0.55rem;color:#7aa87a;display:block;margin-top:-2px}
+  .spacer{flex:1}
+  .top-stats{display:flex;gap:4px;flex-shrink:0}
+  .ts{background:rgba(245,255,245,0.3);border-radius:50px;padding:4px 14px 4px 10px;display:flex;align-items:center;gap:4px;font-size:0.7rem;font-weight:600;border:1px solid rgba(92,170,78,0.06)}
+  .ts .n{font-size:0.85rem;font-weight:800}
+  .ts1 .n{color:#5B9BD5}.ts2 .n{color:#D4835A}.ts3 .n{color:#3B8B2E}
+  .flow-wrap{margin-bottom:14px}
+  .flow-row{display:flex;gap:0;justify-content:space-between;width:100%}
+  .flow-node{flex:1;min-width:0;display:flex;align-items:center;background:rgba(255,255,255,0.60);backdrop-filter:blur(6px);border-radius:16px;padding:10px 8px;cursor:pointer;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.3);transition:all .2s;margin:0 3px}
+  .flow-node:first-child{margin-left:0}.flow-node:last-child{margin-right:0}
+  .flow-node:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(60,130,60,0.06)}
+  .flow-node .pbg{position:absolute;bottom:0;left:0;height:100%;transition:width .6s cubic-bezier(.22,1,.36,1);opacity:0.07;border-radius:16px}
+  .flow-node .pbar{position:absolute;bottom:0;left:0;height:4px;transition:width .6s cubic-bezier(.22,1,.36,1);border-radius:0 0 16px 16px}
+  .flow-node .fc{position:relative;z-index:1;display:flex;align-items:center;gap:6px;width:100%}
+  .flow-node .fi{font-size:1rem;flex-shrink:0}
+  .flow-node .finfo{flex:1;min-width:0}
+  .flow-node .ftt{font-size:0.7rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .flow-node .fmm{font-size:0.55rem;color:#7aa87a}
+  .flow-node .fpct{font-weight:800;font-size:0.75rem;flex-shrink:0}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+  .controls select{padding:6px 12px;border:1px solid rgba(92,170,78,0.08);border-radius:25px;background:rgba(255,255,255,0.5);font-size:0.7rem;color:#1a3a1a;appearance:none;cursor:pointer;padding-right:28px;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 10 10'%3E%3Cpolyline points='2 3 5 7 8 3' fill='none' stroke='%23999' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+  .btn{padding:6px 14px;border:none;border-radius:25px;cursor:pointer;font-weight:700;font-size:0.68rem;background:linear-gradient(135deg,#5CAA4E,#3B8B2E);color:#fff;transition:all .2s;box-shadow:0 2px 8px rgba(59,139,46,0.10)}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(59,139,46,0.12)}
+  .btn-sm{padding:4px 10px;font-size:0.65rem}
+  .btn-ol{background:rgba(255,255,255,0.4);border:1px solid rgba(92,170,78,0.06);color:#1a3a1a;box-shadow:none}
+  .btn-ol:hover{background:rgba(255,255,255,0.6);box-shadow:none;transform:none}
+  .board-wrap{background:rgba(255,255,255,0.45);backdrop-filter:blur(8px);border-radius:16px;padding:16px;border:1px solid rgba(255,255,255,0.3)}
+  .board{display:flex;gap:10px;width:100%}
+  .col{flex:1;min-width:0}
+  .col-hd{padding:8px 10px;font-weight:700;font-size:0.78rem;border-bottom:3px solid;border-radius:12px 12px 0 0;display:flex;justify-content:space-between}
+  .col-bd{padding:6px 2px;min-height:200px}
+  .c1 .col-hd{border-color:#5B9BD5;background:rgba(91,155,213,0.03)}
+  .c2 .col-hd{border-color:#D4835A;background:rgba(212,131,90,0.03)}
+  .c3 .col-hd{border-color:#3B8B2E;background:rgba(59,139,46,0.03)}
+  .card{background:rgba(255,255,255,0.80);border:1px solid rgba(92,170,78,0.04);border-radius:12px;padding:8px;margin-bottom:5px;position:relative;border-left:3px solid transparent}
+  .card.pr-done{border-left-color:#3B8B2E}
+  .card:hover{border-color:rgba(92,170,78,0.08)}
+  .card .ct{font-weight:600;font-size:0.75rem;display:flex;gap:4px;align-items:flex-start}
+  .card .ct input[type="checkbox"]{margin-top:1px;width:13px;height:13px;accent-color:#3B8B2E}
+  .card .cm{font-size:0.58rem;color:#7aa87a;margin-top:3px;display:flex;gap:4px;flex-wrap:wrap}
+  .card .cm .tg{background:rgba(92,170,78,0.03);padding:0 6px;border-radius:8px;font-size:0.55rem}
+  .subs{margin-top:5px}
+  .subi{display:flex;align-items:center;gap:4px;padding:2px 0;font-size:0.65rem}
+  .subi input[type="checkbox"]{width:11px;height:11px;accent-color:#3B8B2E;flex-shrink:0}
+  .subi .sname{color:#3a5a3a;white-space:nowrap}
+  .subi .sname.done{text-decoration:line-through;color:#a0caa0}
+  .subi .sres{flex:1;min-width:0;border:none;border-bottom:1px dashed rgba(92,170,78,0.15);background:transparent;font-size:0.6rem;color:#1a3a1a;padding:1px 4px;outline:none;font-family:inherit;transition:border-color .2s}
+  .subi .sres:focus{border-bottom-color:#3B8B2E}
+  .subi .sres::placeholder{color:#c0dcc0;font-size:0.55rem}
+  .spb{height:3px;background:rgba(0,0,0,0.02);border-radius:2px;margin-top:4px;overflow:hidden}
+  .spbf{height:100%;background:linear-gradient(90deg,#3B8B2E,#7DB356);border-radius:2px;transition:width .4s}
+  .card .acts{position:absolute;top:4px;right:4px;display:none;gap:1px}
+  .card:hover .acts{display:flex}
+  .card .acts button{background:rgba(255,255,255,0.5);border:1px solid rgba(0,0,0,0.02);border-radius:3px;padding:1px 4px;cursor:pointer;font-size:0.5rem;opacity:0.3}
+  .card .acts button:hover{opacity:1}
+  .empty{text-align:center;padding:30px;color:#a0caa0;font-size:0.75rem}
+  @media(max-width:860px){.flow-row{flex-wrap:wrap;gap:6px}.flow-node{flex:calc(33% - 6px);min-width:100px}.board{flex-direction:column}.page-wrap{padding:10px 12px 60px}.top-bar{border-radius:30px;flex-wrap:wrap;gap:8px;padding:6px 12px}.top-stats{gap:3px}.ts{padding:3px 8px;font-size:0.6rem}}
+</style>
+</head>
+<body>
+
+<div class="clouds"></div>
+<div class="hills"></div>
+
+<div class="page-wrap">
+
+  <div class="top-bar">
+    <div class="brand">
+      <div class="icon">🐄</div>
+      <div class="txt">景甜<small>· 内蒙古特产 · 拼多多</small></div>
+    </div>
+    <div class="spacer"></div>
+    <div class="top-stats">
+      <div class="ts ts1"><span class="n" id="s-todo">0</span> 📋 待办</div>
+      <div class="ts ts2"><span class="n" id="s-progress">0</span> 🔄 进行中</div>
+      <div class="ts ts3"><span class="n" id="s-done">0</span> ✅ 完成</div>
+    </div>
+  </div>
+
+  <div class="flow-wrap">
+    <div class="flow-row" id="flowChart"></div>
+  </div>
+
+  <div class="board-wrap">
+    <div class="controls">
+      <select id="flowFilter" onchange="renderBoard()">
+        <option value="all">🌿 全流程</option>
+        <option value="准备">📋 准备</option>
+        <option value="注册">📝 注册</option>
+        <option value="选品">🔍 选品</option>
+        <option value="素材">🎨 素材</option>
+        <option value="上架">🚀 上架</option>
+        <option value="客服">💬 客服</option>
+      </select>
+      <div style="flex:1"></div>
+      <button class="btn btn-sm" onclick="openAddModal()">+ 新建</button>
+      <button class="btn btn-sm btn-ol" onclick="exportData()">📥 导出</button>
+      <button class="btn btn-sm btn-ol" onclick="if(confirm('重置？')){localStorage.removeItem('kb_v8');initData();renderAll();}">🗑 重置</button>
+    </div>
+    <div class="board">
+      <div class="col c1"><div class="col-hd"><span>📋 待办</span><span id="ct-todo">0</span></div><div class="col-bd" id="bd-todo"></div></div>
+      <div class="col c2"><div class="col-hd"><span>🔄 进行中</span><span id="ct-progress">0</span></div><div class="col-bd" id="bd-progress"></div></div>
+      <div class="col c3"><div class="col-hd"><span>✅ 已完成</span><span id="ct-done">0</span></div><div class="col-bd" id="bd-done"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const KEY='kb_v9';
+const FLOW=[
+  {phase:'准备',icon:'📋',title:'准备',color:'#5B9BD5',tasks:[
+    {title:'确定店铺名',subs:[{t:'列候选名'},{t:'查是否被占'},{t:'最终确认'}]},
+    {title:'准备注册资料',subs:[{t:'身份证'},{t:'手机号'},{t:'银行卡'}]},
+    {title:'安装Python环境',subs:[{t:'确认Python'},{t:'pip安装包'},{t:'测试可用'}]}]},
+  {phase:'注册',icon:'📝',title:'注册',color:'#A78BDB',tasks:[
+    {title:'注册个体工商户',subs:[{t:'微信提交'},{t:'缴费¥300'},{t:'等审批'}]},
+    {title:'注册拼多多商家号',subs:[{t:'绑定执照'},{t:'设置信息'},{t:'保证金'}]}]},
+  {phase:'选品',icon:'🔍',title:'选品',color:'#D4835A',tasks:[
+    {title:'研究竞品TOP10',subs:[{t:'看价格带'},{t:'看主图风格'},{t:'整理差评点'}]},
+    {title:'逛1688找供应商',subs:[{t:'搜牛肉干'},{t:'搜奶制品'},{t:'收藏对比'},{t:'联系询价'}]},  /* 合并了联系供应商 */
+    {title:'确定主推品',subs:[{t:'牛肉干'},{t:'奶酪'},{t:'奶茶'},{t:'礼盒'}]}]},  /* 删除了独立的"联系供应商"任务，合并到逛1688的第4个子项 */
+
+  {phase:'素材',icon:'🎨',title:'素材',color:'#C86A6A',tasks:[
+    /* 删除了"下载原图"——和选品阶段找供应商拿原图重复 */
+    {title:'批量修图',subs:[{t:'白底图'},{t:'调色优化'},{t:'加卖点标签'},{t:'拼多多尺寸'}]},
+    {title:'写商品标题',subs:[{t:'核心词'},{t:'参考竞品'},{t:'优化30字'}]},
+    {title:'设计Logo与品牌色',subs:[{t:'定店名'},{t:'设计初稿'},{t:'定稿'}]}]},  /* 新增Logo设计 */
+
+  {phase:'上架',icon:'🚀',title:'上架',color:'#7DB356',tasks:[
+    {title:'第1批10个SKU',subs:[{t:'填标题'},{t:'传主图详情'},{t:'定价'},{t:'设置规格'}]},
+    {title:'第2批10-15个SKU',subs:[{t:'填写上架'},{t:'差异化定价'}]},
+    {title:'设置营销',subs:[{t:'优惠券'},{t:'满减活动'},{t:'运费模板'},{t:'多多进宝'}]}]},
+  {phase:'客服',icon:'💬',title:'客服',color:'#C58B5C',tasks:[
+    {title:'建话术库',subs:[{t:'常见Q&A'},{t:'标准模板'},{t:'分类存档'}]},
+    {title:'设置自动回复',subs:[{t:'配置关键词'},{t:'测试回复'},{t:'优化'}]},
+    {title:'售后流程',subs:[{t:'退换规则'},{t:'差评回复模板'},{t:'赔付政策'}]}]}
+];
+
+let tasks=[];
+
+function initData(){
+  tasks=[];let id=0;
+  FLOW.forEach(f=>f.tasks.forEach(t=>{
+    const subs=(t.subs||[]).map(s=>({text:s.t,res:'',done:false}));
+    // 准备工作 全部已完成，并填写结果
+    if(f.phase==='准备'){
+      if(t.title==='确定店铺名'){
+        subs[0]={text:'列候选名',res:'主推：呼和浩特市赛罕区天边牧野特产经营店\n备用①原上草集食品经销店\n备用②穹庐优选食品店\n备用③北疆牧歌特产商行\n备用④草甸风物食品商行\n备用⑤蒙初优品食品经营部',done:true};
+        subs[1]={text:'查是否被占',res:'待去微信"电子营业执照"小程序查重',done:false};
+        subs[2]={text:'最终确认',res:'待定，查重通过后确认',done:false};
+      } else if(t.title==='准备注册资料'){
+        subs[0]={text:'身份证',res:'已拍照存手机',done:true};
+        subs[1]={text:'手机号',res:'182xxxxxxx（未注册过拼多多）',done:true};
+        subs[2]={text:'银行卡',res:'工行卡已准备',done:true};
+      } else if(t.title==='安装Python环境'){
+        subs[0]={text:'确认Python',res:'已安装 3.11.5',done:true};
+        subs[1]={text:'pip安装包',res:'pip install pillow rembg',done:true};
+        subs[2]={text:'测试可用',res:'python测试import通过',done:true};
+      }
+    }
+    tasks.push({id:'t'+(id++),title:t.title,phase:f.phase,
+      status: (subs.length > 0 && subs.every(s => s.done)) ? 'done' : (subs.some(s => s.done) ? 'progress' : 'todo'),
+      project:'all',note:'',due:'',
+      subtasks:subs,createdAt:Date.now()+id});
+  }));
+  saveData();
+}
+
+function loadData(){const s=localStorage.getItem(KEY);if(s){tasks=JSON.parse(s);tasks.forEach(t=>{if(!t.subtasks)t.subtasks=[];if(!t.project)t.project='all';if(!t.due)t.due='';});}else initData();}
+function saveData(){localStorage.setItem(KEY,JSON.stringify(tasks));}
+function sr(){saveData();renderAll();}
+function renderAll(){renderStats();renderFlow();renderBoard();}
+function renderStats(){document.getElementById('s-todo').textContent=tasks.filter(x=>x.status==='todo').length;document.getElementById('s-progress').textContent=tasks.filter(x=>x.status==='progress').length;document.getElementById('s-done').textContent=tasks.filter(x=>x.status==='done').length;}
+function renderFlow(){document.getElementById('flowChart').innerHTML=FLOW.map(f=>{const ft=tasks.filter(t=>t.phase===f.phase);const total=ft.length,done=ft.filter(t=>t.status==='done').length,pct=total?Math.round(done/total*100):0;return `<div class="flow-node" onclick="filterPhase('${f.phase}')"><div class="pbg" style="width:${pct}%;background:${f.color}"></div><div class="pbar" style="width:${pct}%;background:${f.color}"></div><div class="fc"><div class="fi">${f.icon}</div><div class="finfo"><div class="ftt">${f.title}</div><div class="fmm">${done}/${total}</div></div><div class="fpct" style="color:${done===total?'#3B8B2E':f.color}">${pct}%</div></div></div>`;}).join('');}
+function filterPhase(p){document.getElementById('flowFilter').value=p;renderBoard();}
+function gf(){const p=document.getElementById('flowFilter').value;return p==='all'?tasks:tasks.filter(t=>t.phase===p);}
+function renderBoard(){const f=gf(),cols={todo:[],progress:[],done:[]};f.forEach(t=>cols[t.status].push(t));['todo','progress','done'].forEach(st=>{const el=document.getElementById('bd-'+st);el.innerHTML=cols[st].length?cols[st].sort((a,b)=>b.createdAt-a.createdAt).map(t=>{const sd=t.subtasks.filter(s=>s.done).length,stt=t.subtasks.length,pct=stt?Math.round(sd/stt*100):-1;return `<div class="card ${st==='done'?'pr-done':''}"><div class="acts"><button onclick="mv('${t.id}','${st}','l')">◀</button><button onclick="mv('${t.id}','${st}','r')">▶</button><button onclick="ed('${t.id}')">✏️</button><button onclick="del('${t.id}')">✕</button></div><div class="ct"><input type="checkbox" ${st==='done'?'checked':''} onchange="tg('${t.id}')"> ${t.title}</div><div class="cm"><span class="tg">${t.phase}</span>${stt>0?`📋 ${sd}/${stt}`:''}</div>${stt>0?`<div class="subs">${t.subtasks.map((s,k)=>`<div class="subi"><input type="checkbox" ${s.done?'checked':''} onchange="subCheck('${t.id}',${k})"><span class="sname ${s.done?'done':''}">${s.text}</span><input class="sres" type="text" placeholder="填写..." value="${s.res||''}" onchange="subRes('${t.id}',${k},this.value)"></div>`).join('')}</div><div class="spb"><div class="spbf" style="width:${pct}%"></div></div>`:''}</div>`;}).join(''):'<div class="empty">🌱 暂无</div>';document.getElementById('ct-'+st).textContent=cols[st].length;});renderStats();}
+function tg(id){const t=tasks.find(x=>x.id===id);if(!t)return;if(t.status==='done')t.status='todo';else if(t.status==='progress')t.status='done';else t.status='progress';if(t.status==='done')t.subtasks.forEach(s=>s.done=true);ld(t.id);sr();}
+function subCheck(id,idx){const t=tasks.find(x=>x.id===id);if(!t||!t.subtasks[idx])return;t.subtasks[idx].done=!t.subtasks[idx].done;const a=t.subtasks.length,d=t.subtasks.filter(s=>s.done).length;if(d===a&&a>0&&t.status!=='done')t.status='done';else if(d>0&&d<a&&t.status!=='progress')t.status='progress';else if(d===0&&t.status!=='todo')t.status='todo';ld(t.id);sr();}
+function subRes(id,idx,v){const t=tasks.find(x=>x.id===id);if(!t||!t.subtasks[idx])return;t.subtasks[idx].res=v;saveData();}
+function mv(id,c,d){const t=tasks.find(x=>x.id===id);if(!t)return;const ss=['todo','progress','done'],i=ss.indexOf(c),n=d==='l'?ss[Math.max(0,i-1)]:ss[Math.min(2,i+1)];if(n!==c){t.status=n;ld(t.id);sr();}}
+function del(id){if(!confirm('删除？'))return;tasks=tasks.filter(x=>x.id!==id);sr();}
+function ld(id){const t=tasks.find(x=>x.id===id);if(!t)return;let ls=JSON.parse(localStorage.getItem('kb_logs')||'[]');const td=new Date().toISOString().slice(0,10);if(t.status==='done'&&!ls.some(l=>l.taskId===id&&l.date===td))ls.push({taskId:id,title:t.title,date:td});localStorage.setItem('kb_logs',JSON.stringify(ls));}
+function openAddModal(){const title=prompt('任务名称：');if(!title||!title.trim())return;const p=document.getElementById('flowFilter').value==='all'?'准备':document.getElementById('flowFilter').value;const subs=prompt('子任务（逗号分隔）：');const st=subs?subs.split(/[,，]/).filter(s=>s.trim()).map(s=>({text:s.trim(),res:'',done:false})):[];tasks.push({id:'t'+Date.now()+Math.random().toString(36).substring(2,6),title:title.trim(),phase:p,status:'todo',project:'all',note:'',due:'',subtasks:st,createdAt:Date.now()});sr();}
+function ed(id){const t=tasks.find(x=>x.id===id);if(!t)return;const title=prompt('名称：',t.title);if(!title||!title.trim())return;t.title=title.trim();const subs=prompt('子任务（逗号分隔）：',t.subtasks.map(s=>s.text).join('，'));if(subs!==null){t.subtasks=subs.split(/[,，]/).filter(s=>s.trim()).map(s=>{const ex=t.subtasks.find(x=>x.text===s.trim());return ex||{text:s.trim(),res:'',done:false};});}sr();}
+function exportData(){const dn=tasks.filter(x=>x.status==='done').length;const text='【'+new Date().toLocaleDateString()+' 进度】\n总计：'+tasks.length+' | 待办：'+tasks.filter(x=>x.status==='todo').length+' | 进行中：'+tasks.filter(x=>x.status==='progress').length+' | 已完成：'+dn+' | 完成率：'+Math.round(dn/tasks.length*100)+'%\n\n'+tasks.map(t=>{const m={todo:'📋',progress:'🔄',done:'✅'};let s=t.subtasks.filter(s=>s.done).length+'/'+t.subtasks.length;if(t.subtasks.some(s=>s.res))s+=' ['+t.subtasks.filter(s=>s.res).map(s=>s.text+':'+s.res).join('; ')+']';return m[t.status]+' ['+t.phase+'] '+t.title+(t.subtasks.length?' ('+s+')':'');}).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));a.download='kanban_'+new Date().toISOString().slice(0,10)+'.txt';a.click();}
+loadData();renderAll();
+</script>
+</body>
+</html>
