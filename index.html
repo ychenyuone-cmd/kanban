@@ -24,266 +24,114 @@ body {
   color: var(--text);
   min-height: 100vh;
 }
-
-/* Header */
 header {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   color: #fff;
   padding: 20px 24px;
   position: sticky;
-  top: 0;
-  z-index: 100;
+  top: 0; z-index: 100;
   box-shadow: 0 2px 20px rgba(0,0,0,.15);
 }
 .header-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
 }
-.header-inner h1 {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
+.header-inner h1 { font-size: 22px; font-weight: 700; letter-spacing: 1px; }
 .header-inner h1 span { color: #e67e22; }
-.header-info {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 13px;
-  color: #aaa;
-}
-.header-info .badge {
-  background: rgba(255,255,255,.1);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-}
-.export-btn {
-  background: rgba(255,255,255,.1);
-  border: 1px solid rgba(255,255,255,.2);
-  color: #fff;
-  padding: 6px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 12px;
-  transition: .2s;
-}
+.header-info { display: flex; align-items: center; gap: 12px; font-size: 13px; color: #aaa; }
+.header-info .badge { background: rgba(255,255,255,.1); padding: 4px 12px; border-radius: 20px; font-size: 12px; }
+.header-info .badge.approval { background: #e67e22; color:#fff; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
+.export-btn { background: rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); color:#fff; padding:6px 14px; border-radius:8px; cursor:pointer; font-size:12px; transition:.2s; }
 .export-btn:hover { background: rgba(255,255,255,.2); }
+.stats-bar { max-width:1200px; margin:0 auto; padding:16px 24px; display:flex; gap:12px; flex-wrap:wrap; }
+.stat-card { background:var(--card); border-radius:var(--radius); padding:12px 18px; flex:1; min-width:100px; box-shadow:var(--shadow); text-align:center; }
+.stat-card .num { font-size:24px; font-weight:700; }
+.stat-card .label { font-size:12px; color:var(--muted); margin-top:2px; }
+.stat-card.c1 .num { color:#c0392b; }
+.stat-card.c2 .num { color:#e67e22; }
+.stat-card.c3 .num { color:#27ae60; }
+.stat-card.c4 .num { color:#2980b9; }
+.phase-flow { max-width:1200px; margin:0 auto; padding:0 24px 16px; display:flex; gap:8px; overflow-x:auto; }
+.phase-item { flex:1; min-width:100px; background:var(--card); border-radius:10px; padding:12px 14px; box-shadow:var(--shadow); cursor:pointer; transition:.2s; position:relative; border-left:3px solid #ddd; }
+.phase-item:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0,0,0,.1); }
+.phase-item.active { border-left-color:var(--accent); background:#fef9f0; }
+.phase-item .name { font-size:13px; font-weight:600; }
+.phase-item .progress { margin-top:6px; display:flex; align-items:center; gap:8px; }
+.phase-item .bar { flex:1; height:4px; background:#eee; border-radius:2px; overflow:hidden; }
+.phase-item .bar .fill { height:100%; border-radius:2px; transition:width .5s; }
+.phase-item .pct { font-size:11px; color:var(--muted); }
+.phase-item .count { font-size:10px; color:var(--muted); margin-top:2px; }
+.board { max-width:1200px; margin:0 auto; padding:0 24px 24px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+.column { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; }
+.col-header { padding:14px 16px; font-size:14px; font-weight:600; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:8px; }
+.col-header .dot { width:8px; height:8px; border-radius:50%; display:inline-block; }
+.col-todo .col-header { color:#c0392b; }
+.col-todo .col-header .dot { background:#c0392b; }
+.col-doing .col-header { color:#e67e22; }
+.col-doing .col-header .dot { background:#e67e22; }
+.col-done .col-header { color:#27ae60; }
+.col-done .col-header .dot { background:#27ae60; }
+.col-body { padding:8px; min-height:200px; }
+.card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:12px 14px; margin-bottom:8px; cursor:pointer; transition:.15s; position:relative; }
+.card:hover { border-color:var(--accent2); box-shadow:0 2px 8px rgba(0,0,0,.06); }
+.card .title { font-size:14px; font-weight:500; }
+.card .meta { display:flex; gap:6px; margin-top:6px; flex-wrap:wrap; }
+.card .meta .tag { font-size:10px; padding:2px 8px; border-radius:10px; background:#f0f0eb; color:var(--muted); }
+.card .meta .tag.pending { background:#fef3e2; color:#e67e22; }
+.card .meta .tag.approved { background:#e8f8e8; color:#27ae60; }
+.card .meta .tag.rejected { background:#fee; color:#c0392b; }
+.card .approval-badge { position:absolute; top:8px; right:8px; font-size:10px; padding:2px 8px; border-radius:8px; }
+.card .approval-badge.pending { background:#e67e22; color:#fff; animation:pulse 1.5s infinite; }
+.card .approval-badge.approved { background:#27ae60; color:#fff; }
+.card .approval-badge.rejected { background:#c0392b; color:#fff; }
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:200; align-items:center; justify-content:center; padding:20px; }
+.modal-overlay.show { display:flex; }
+.modal { background:#fff; border-radius:16px; width:100%; max-width:520px; max-height:80vh; overflow-y:auto; padding:24px; box-shadow:0 20px 60px rgba(0,0,0,.2); }
+.modal h2 { font-size:18px; margin-bottom:4px; }
+.modal .phase-badge { display:inline-block; font-size:11px; padding:2px 10px; border-radius:10px; background:#f0f0eb; color:var(--muted); margin-bottom:12px; }
+.modal label { display:block; font-size:13px; font-weight:500; margin:12px 0 4px; }
+.modal input, .modal textarea, .modal select { width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:8px; font-size:14px; outline:none; font-family:inherit; }
+.modal input:focus, .modal textarea:focus, .modal select:focus { border-color:var(--accent2); }
+.modal textarea { resize:vertical; min-height:60px; }
+.modal .btns { display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; }
+.modal .btns button { flex:1; min-width:80px; padding:10px; border:none; border-radius:8px; font-size:14px; cursor:pointer; transition:.2s; font-family:inherit; }
+.modal .btn-primary { background:var(--accent2); color:#fff; }
+.modal .btn-primary:hover { background:#d35400; }
+.modal .btn-danger { background:#fee; color:#c0392b; }
+.modal .btn-danger:hover { background:#fdd; }
+.modal .btn-success { background:#e8f8e8; color:#27ae60; }
+.modal .btn-success:hover { background:#d0f0d0; }
+.modal .btn-ghost { background:#f5f5f0; color:var(--text); }
+.modal .btn-ghost:hover { background:#e8e8e0; }
+.sub-list { margin:8px 0; }
+.sub-row { display:flex; align-items:center; gap:8px; padding:6px 8px; border-bottom:1px solid var(--border); }
+.sub-row:last-child { border-bottom:none; }
+.sub-row input[type=checkbox] { width:16px; height:16px; cursor:pointer; }
+.sub-row .sub-text { flex:1; font-size:13px; }
+.sub-row .sub-text.done { text-decoration:line-through; color:var(--muted); }
+.sub-row .sub-result { font-size:11px; color:var(--accent3); margin-left:auto; }
+.sub-row .result-input { flex:1; padding:4px 8px; border:1px dashed #ccc; border-radius:4px; font-size:12px; outline:none; }
+.sub-row .result-input:focus { border-color:var(--accent2); }
 
-/* Stats bar */
-.stats-bar {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 16px 24px;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.stat-card {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 12px 18px;
-  flex: 1;
-  min-width: 100px;
-  box-shadow: var(--shadow);
-  text-align: center;
-}
-.stat-card .num { font-size: 24px; font-weight: 700; }
-.stat-card .label { font-size: 12px; color: var(--muted); margin-top: 2px; }
-.stat-card.c1 .num { color: #c0392b; }
-.stat-card.c2 .num { color: #e67e22; }
-.stat-card.c3 .num { color: #27ae60; }
-.stat-card.c4 .num { color: #2980b9; }
+/* Approval section */
+.approval-section { margin-top:16px; padding-top:16px; border-top:1px solid var(--border); }
+.approval-section h3 { font-size:14px; font-weight:600; margin-bottom:8px; }
+.approval-status { display:flex; align-items:center; gap:8px; padding:10px 12px; border-radius:8px; font-size:13px; margin-bottom:8px; }
+.approval-status.pending { background:#fef3e2; color:#e67e22; }
+.approval-status.approved { background:#e8f8e8; color:#27ae60; }
+.approval-status.rejected { background:#fee; color:#c0392b; }
+.approval-status.none { background:#f5f5f0; color:var(--muted); }
+.approval-msg { font-size:12px; color:var(--muted); margin:4px 0 8px; padding:8px; background:#fafaf5; border-radius:6px; }
 
-/* Phase flow */
-.phase-flow {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px 16px;
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
+@media (max-width:800px) {
+  .board { grid-template-columns:1fr; }
+  .phase-flow { flex-wrap:wrap; }
+  .phase-item { min-width:80px; }
+  .stats-bar { gap:8px; }
+  .stat-card { min-width:70px; padding:8px 12px; }
+  .stat-card .num { font-size:18px; }
 }
-.phase-item {
-  flex: 1;
-  min-width: 100px;
-  background: var(--card);
-  border-radius: 10px;
-  padding: 12px 14px;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  transition: .2s;
-  position: relative;
-  border-left: 3px solid #ddd;
-}
-.phase-item:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,.1); }
-.phase-item.active { border-left-color: var(--accent); background: #fef9f0; }
-.phase-item .name { font-size: 13px; font-weight: 600; }
-.phase-item .progress { margin-top: 6px; display: flex; align-items: center; gap: 8px; }
-.phase-item .bar { flex: 1; height: 4px; background: #eee; border-radius: 2px; overflow: hidden; }
-.phase-item .bar .fill { height: 100%; border-radius: 2px; transition: width .5s; }
-.phase-item .pct { font-size: 11px; color: var(--muted); }
-.phase-item .count { font-size: 10px; color: var(--muted); margin-top: 2px; }
-
-/* Board */
-.board {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px 24px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
-}
-.column {
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-.col-header {
-  padding: 14px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.col-header .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-.col-todo .col-header { color: #c0392b; }
-.col-todo .col-header .dot { background: #c0392b; }
-.col-doing .col-header { color: #e67e22; }
-.col-doing .col-header .dot { background: #e67e22; }
-.col-done .col-header { color: #27ae60; }
-.col-done .col-header .dot { background: #27ae60; }
-
-.col-body { padding: 8px; min-height: 200px; }
-
-/* Card */
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px 14px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  transition: .15s;
-}
-.card:hover { border-color: var(--accent2); box-shadow: 0 2px 8px rgba(0,0,0,.06); }
-.card .title { font-size: 14px; font-weight: 500; }
-.card .meta { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
-.card .meta .tag {
-  font-size: 10px;
-  padding: 2px 8px;
-  border-radius: 10px;
-  background: #f0f0eb;
-  color: var(--muted);
-}
-.card .subs { margin-top: 6px; }
-.card .sub-item {
-  font-size: 12px;
-  color: var(--muted);
-  padding: 2px 0;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.card .sub-item.ok { color: var(--accent3); }
-.card .sub-item.ok::before { content: "✓"; font-weight: bold; }
-
-/* Modal */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.4);
-  z-index: 200;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.modal-overlay.show { display: flex; }
-.modal {
-  background: #fff;
-  border-radius: 16px;
-  width: 100%;
-  max-width: 520px;
-  max-height: 80vh;
-  overflow-y: auto;
-  padding: 24px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.2);
-}
-.modal h2 { font-size: 18px; margin-bottom: 4px; }
-.modal .phase-badge {
-  display: inline-block;
-  font-size: 11px;
-  padding: 2px 10px;
-  border-radius: 10px;
-  background: #f0f0eb;
-  color: var(--muted);
-  margin-bottom: 12px;
-}
-.modal label { display: block; font-size: 13px; font-weight: 500; margin: 12px 0 4px; }
-.modal input, .modal textarea, .modal select {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-size: 14px;
-  outline: none;
-  font-family: inherit;
-}
-.modal input:focus, .modal textarea:focus, .modal select:focus {
-  border-color: var(--accent2);
-}
-.modal textarea { resize: vertical; min-height: 60px; }
-.modal .btns { display: flex; gap: 8px; margin-top: 16px; }
-.modal .btns button {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: .2s;
-}
-.modal .btn-primary { background: var(--accent2); color: #fff; }
-.modal .btn-primary:hover { background: #d35400; }
-.modal .btn-danger { background: #fee; color: #c0392b; }
-.modal .btn-danger:hover { background: #fdd; }
-.modal .btn-ghost { background: #f5f5f0; color: var(--text); }
-
-/* Sub-tasks in modal */
-.sub-list { margin: 8px 0; }
-.sub-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 8px;
-  border-bottom: 1px solid var(--border);
-}
-.sub-row:last-child { border-bottom: none; }
-.sub-row input[type=checkbox] { width: 16px; height: 16px; cursor: pointer; }
-.sub-row .sub-text { flex: 1; font-size: 13px; }
-.sub-row .sub-text.done { text-decoration: line-through; color: var(--muted); }
-.sub-row .sub-result { font-size: 11px; color: var(--accent3); margin-left: auto; }
-.sub-row input[type=text] { flex: 1; padding: 4px 8px; border: 1px dashed #ccc; border-radius: 4px; font-size: 12px; }
-
-/* Responsive */
-@media (max-width: 800px) {
-  .board { grid-template-columns: 1fr; }
-  .phase-flow { flex-wrap: wrap; }
-  .phase-item { min-width: 80px; }
-  .stats-bar { gap: 8px; }
-  .stat-card { min-width: 70px; padding: 8px 12px; }
-  .stat-card .num { font-size: 18px; }
-}
-
-/* Reset */
-button { font-family: inherit; }
 </style>
 </head>
 <body>
@@ -293,6 +141,7 @@ button { font-family: inherit; }
     <h1>🐏 <span>蒙古</span>牧场·运营</h1>
     <div class="header-info">
       <span class="badge" id="phaseCount">6阶段</span>
+      <span class="badge approval" id="approvalBadge" style="display:none">⏳ 待审批</span>
       <button class="export-btn" onclick="exportData()">📥 导出</button>
       <button class="export-btn" onclick="document.getElementById('importFile').click()">📤 导入</button>
       <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
@@ -340,11 +189,25 @@ button { font-family: inherit; }
     <select id="editPhase"></select>
     <label>备注</label>
     <textarea id="editNote" placeholder="备注…"></textarea>
+    
     <label>子任务</label>
-    <div class="sub-list" id="subList"></div>
+    <div class="sub-list" id="subList">
+      <div style="color:var(--muted);font-size:13px;padding:4px 0">暂无子任务</div>
+    </div>
+    
+    <!-- 审批区域 -->
+    <div class="approval-section" id="approvalSection">
+      <h3>📋 审批</h3>
+      <div id="approvalStatusDisplay"></div>
+      <div id="approvalMessageDisplay"></div>
+      <div id="approvalActions" style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn-primary" id="btnRequestApproval" onclick="requestApproval()">📩 提交审批</button>
+      </div>
+    </div>
+    
     <div class="btns">
-      <button class="btn-primary" onclick="saveTask()">保存</button>
-      <button class="btn-danger" onclick="deleteTask()">删除</button>
+      <button class="btn-primary" onclick="saveTask()">💾 保存</button>
+      <button class="btn-danger" onclick="deleteTask()">🗑 删除</button>
       <button class="btn-ghost" onclick="closeModal()">取消</button>
     </div>
   </div>
@@ -353,7 +216,7 @@ button { font-family: inherit; }
 <script>
 const PHASES = ["准备","注册","选品","素材","上架","客服"];
 const PHASE_COLORS = ["#8e44ad","#2980b9","#27ae60","#e67e22","#c0392b","#1abc9c"];
-const STATUS_TEXT = { todo:"待办", doing:"进行中", done:"已完成" };
+const APPROVAL_STATES = { none:"未提交", pending:"⏳ 审批中", approved:"✅ 已通过", rejected:"❌ 已拒绝" };
 
 let editingId = null;
 let data = loadData();
@@ -361,17 +224,17 @@ let data = loadData();
 function defaultData() {
   return {
     tasks: [
-      { id:"t1", title:"准备注册资料", phase:"准备", status:"done", note:"身份证已拍照、手机号182xxx、工行卡已准备", subs:[{text:"身份证拍照",done:true,result:"已拍照"},{text:"手机号验证",done:true,result:"182xxx"},{text:"银行卡准备",done:true,result:"工行卡已准备"},{text:"备用店名确认",done:true,result:"原上草集"}] },
-      { id:"t2", title:"安装Python环境", phase:"准备", status:"done", note:"Python 3.11.5 + pillow/rembg", subs:[{text:"安装Python",done:true,result:"3.11.5"},{text:"安装pillow",done:true,result:"已安装"},{text:"测试通过",done:true,result:"ok"}] },
-      { id:"t3", title:"逛1688找供应商", phase:"选品", status:"doing", note:"找牛肉干/奶制品供应商", subs:[{text:"搜索牛肉干",done:true,result:"已搜索"},{text:"搜索奶制品",done:false},{text:"对比价格",done:false},{text:"联系询价",done:false}] },
-      { id:"t4", title:"确定选品清单", phase:"选品", status:"todo", note:"", subs:[] },
-      { id:"t5", title:"下载原图素材", phase:"素材", status:"todo", note:"从供应商拿图", subs:[] },
-      { id:"t6", title:"设计Logo与品牌色", phase:"素材", status:"todo", note:"", subs:[] },
-      { id:"t7", title:"注册拼多多店铺", phase:"注册", status:"todo", note:"商标: 原上草集", subs:[] },
-      { id:"t8", title:"上传商品", phase:"上架", status:"todo", note:"", subs:[] },
-      { id:"t9", title:"编写商品详情页", phase:"上架", status:"todo", note:"", subs:[] },
-      { id:"t10", title:"配置客服话术", phase:"客服", status:"todo", note:"", subs:[] },
-      { id:"t11", title:"运营推广", phase:"运营", status:"todo", note:"内容运营/社交推广", subs:[{text:"内容规划",done:false},{text:"社交推广",done:false}] }
+      { id:"t1", title:"准备注册资料", phase:"准备", status:"done", note:"身份证已拍照、手机号182xxx、工行卡已准备", subs:[{text:"身份证拍照",done:true,result:"已拍照"},{text:"手机号验证",done:true,result:"182xxx"},{text:"银行卡准备",done:true,result:"工行卡已准备"},{text:"备用店名确认",done:true,result:"原上草集"}], approval:{state:"approved",msg:"资料齐全，可以注册",time:"2026-04-25 04:30"} },
+      { id:"t2", title:"安装Python环境", phase:"准备", status:"done", note:"Python 3.11.5 + pillow/rembg", subs:[{text:"安装Python",done:true,result:"3.11.5"},{text:"安装pillow",done:true,result:"已安装"},{text:"测试通过",done:true,result:"ok"}], approval:{state:"approved",msg:"环境就绪",time:"2026-04-25 04:30"} },
+      { id:"t3", title:"逛1688找供应商", phase:"选品", status:"doing", note:"找牛肉干/奶制品供应商", subs:[{text:"搜索牛肉干",done:true,result:"已搜索3家"},{text:"搜索奶制品",done:false},{text:"对比价格",done:false},{text:"联系询价",done:false}], approval:{state:"none"} },
+      { id:"t4", title:"确定选品清单", phase:"选品", status:"todo", note:"", subs:[], approval:{state:"none"} },
+      { id:"t5", title:"下载原图素材", phase:"素材", status:"todo", note:"从供应商拿图", subs:[], approval:{state:"none"} },
+      { id:"t6", title:"设计Logo与品牌色", phase:"素材", status:"todo", note:"", subs:[], approval:{state:"none"} },
+      { id:"t7", title:"注册拼多多店铺", phase:"注册", status:"todo", note:"商标: 原上草集", subs:[], approval:{state:"none"} },
+      { id:"t8", title:"上传商品", phase:"上架", status:"todo", note:"", subs:[], approval:{state:"none"} },
+      { id:"t9", title:"编写商品详情页", phase:"上架", status:"todo", note:"", subs:[], approval:{state:"none"} },
+      { id:"t10", title:"配置客服话术", phase:"客服", status:"todo", note:"", subs:[], approval:{state:"none"} },
+      { id:"t11", title:"运营推广", phase:"运营", status:"todo", note:"内容运营/社交推广", subs:[{text:"内容规划",done:false},{text:"社交推广",done:false}], approval:{state:"none"} }
     ]
   };
 }
@@ -411,12 +274,8 @@ function importData(e) {
   reader.readAsText(file);
 }
 
-// Render
-
 function render() {
   const tasks = data.tasks;
-  
-  // Stats
   const todo = tasks.filter(t => t.status === "todo").length;
   const doing = tasks.filter(t => t.status === "doing").length;
   const done = tasks.filter(t => t.status === "done").length;
@@ -425,85 +284,90 @@ function render() {
   document.getElementById("statDone").textContent = done;
   document.getElementById("statTotal").textContent = tasks.length;
   
-  // Phase flow
+  const pendingApprovals = tasks.filter(t => t.approval && t.approval.state === "pending");
+  const badge = document.getElementById("approvalBadge");
+  if (pendingApprovals.length > 0) {
+    badge.style.display = "inline";
+    badge.textContent = `⏳ ${pendingApprovals.length}个待审批`;
+  } else {
+    badge.style.display = "none";
+  }
+  
   const pf = document.getElementById("phaseFlow");
   pf.innerHTML = PHASES.map((p, i) => {
     const pts = tasks.filter(t => t.phase === p);
-    const done = pts.filter(t => t.status === "done").length;
+    const d = pts.filter(t => t.status === "done").length;
     const total = pts.length;
-    const pct = total ? Math.round(done / total * 100) : 0;
+    const pct = total ? Math.round(d / total * 100) : 0;
     return `<div class="phase-item" onclick="filterPhase('${p}')" data-phase="${p}">
       <div class="name">${p}</div>
       <div class="progress">
         <div class="bar"><div class="fill" style="width:${pct}%;background:${PHASE_COLORS[i]}"></div></div>
         <span class="pct">${pct}%</span>
       </div>
-      <div class="count">${done}/${total}</div>
+      <div class="count">${d}/${total}</div>
     </div>`;
   }).join("");
   
-  // Columns
-  const cols = { todo: "colTodo", doing: "colDoing", done: "colDone" };
-  ["todo","doing","done"].forEach(st => {
-    const el = document.getElementById(cols[st]);
-    const statusTasks = tasks.filter(t => t.status === st);
-    el.innerHTML = statusTasks.map(t => {
-      const subsDone = t.subs.filter(s => s.done).length;
-      const subsTotal = t.subs.length;
-      return `<div class="card" onclick="openTask('${t.id}')">
-        <div class="title">${esc(t.title)}</div>
-        <div class="meta">
-          <span class="tag">${t.phase}</span>
-          ${subsTotal ? `<span class="tag">✓ ${subsDone}/${subsTotal}</span>` : ""}
-        </div>
-        ${t.subs.filter(s => s.done).length > 0 ? `<div class="subs">${t.subs.filter(s=>s.done).slice(0,2).map(s=>`<div class="sub-item ok">${esc(s.text)}${s.result ? ' → '+esc(s.result) : ''}</div>`).join("")}</div>` : ""}
-      </div>`;
-    }).join("");
-  });
-  
-  document.getElementById("todoCount").textContent = `(${todo})`;
-  document.getElementById("doingCount").textContent = `(${doing})`;
-  document.getElementById("doneCount").textContent = `(${done})`;
-}
-
-// Filter
-let activeFilter = null;
-function filterPhase(phase) {
-  document.querySelectorAll(".phase-item").forEach(el => el.classList.remove("active"));
-  const el = document.querySelector(`.phase-item[data-phase="${phase}"]`);
-  if (el) el.classList.add("active");
-  
-  // Apply filter
-  activeFilter = (activeFilter === phase) ? null : phase;
   renderColumns();
 }
+
+let activeFilter = null;
 
 function renderColumns() {
   const tasks = data.tasks;
   const filtered = activeFilter ? tasks.filter(t => t.phase === activeFilter) : tasks;
   
-  const cols = { todo: "colTodo", doing: "colDoing", done: "colDone" };
   ["todo","doing","done"].forEach(st => {
-    const el = document.getElementById(cols[st]);
+    const el = document.getElementById(st === "todo" ? "colTodo" : st === "doing" ? "colDoing" : "colDone");
     const statusTasks = filtered.filter(t => t.status === st);
     el.innerHTML = statusTasks.map(t => {
+      const subsDone = t.subs.filter(s => s.done).length;
+      const subsTotal = t.subs.length;
+      const ap = t.approval || {state:"none"};
+      let badgeHtml = "";
+      if (ap.state === "pending") badgeHtml = `<div class="approval-badge pending">⏳审批中</div>`;
+      else if (ap.state === "approved") badgeHtml = `<div class="approval-badge approved">✅已批</div>`;
+      else if (ap.state === "rejected") badgeHtml = `<div class="approval-badge rejected">❌已拒</div>`;
+      
       return `<div class="card" onclick="openTask('${t.id}')">
+        ${badgeHtml}
         <div class="title">${esc(t.title)}</div>
         <div class="meta">
           <span class="tag">${t.phase}</span>
-          ${t.subs.length ? `<span class="tag">✓ ${t.subs.filter(s=>s.done).length}/${t.subs.length}</span>` : ""}
+          ${subsTotal ? `<span class="tag">✓ ${subsDone}/${subsTotal}</span>` : ""}
+          ${ap.state === "pending" ? `<span class="tag pending">⏳审批</span>` : ""}
+          ${ap.state === "approved" ? `<span class="tag approved">✅审批</span>` : ""}
+          ${ap.state === "rejected" ? `<span class="tag rejected">❌审批</span>` : ""}
         </div>
+        ${t.subs.filter(s => s.done).length > 0 ? `<div class="subs">${t.subs.filter(s=>s.done).slice(0,2).map(s=>`<span style="font-size:11px;color:var(--accent3);display:block">✓ ${esc(s.text)}${s.result?' → '+esc(s.result):''}</span>`).join("")}</div>` : ""}
       </div>`;
     }).join("");
   });
+  
+  const todo = data.tasks.filter(t => t.status === "todo").length;
+  const doing = data.tasks.filter(t => t.status === "doing").length;
+  const done = data.tasks.filter(t => t.status === "done").length;
+  if (!activeFilter || activeFilter === null) {
+    document.getElementById("todoCount").textContent = `(${todo})`;
+    document.getElementById("doingCount").textContent = `(${doing})`;
+    document.getElementById("doneCount").textContent = `(${done})`;
+  }
 }
 
-// Modal
+function filterPhase(phase) {
+  document.querySelectorAll(".phase-item").forEach(el => el.classList.remove("active"));
+  const el = document.querySelector(`.phase-item[data-phase="${phase}"]`);
+  if (el) el.classList.add("active");
+  activeFilter = (activeFilter === phase) ? null : phase;
+  renderColumns();
+}
+
 function openTask(id) {
   const t = data.tasks.find(x => x.id === id);
   if (!t) return;
   editingId = id;
-  document.getElementById("modalTitle").textContent = "编辑任务";
+  document.getElementById("modalTitle").textContent = t.title;
   document.getElementById("editName").value = t.title;
   document.getElementById("editStatus").value = t.status;
   
@@ -512,16 +376,49 @@ function openTask(id) {
   
   document.getElementById("editNote").value = t.note || "";
   
-  const sl = document.getElementById("subList");
-  sl.innerHTML = t.subs.map((s, i) => `
-    <div class="sub-row">
-      <input type="checkbox" ${s.done?"checked":""} onchange="toggleSub(${i})">
-      <span class="sub-text ${s.done?'done':''}">${esc(s.text)}</span>
-      <input type="text" value="${esc(s.result||'')}" placeholder="结果..." onchange="setSubResult(${i}, this.value)">
-    </div>
-  `).join("");
+  document.getElementById("modalPhase").textContent = t.phase + (t.approval?.state==="pending" ? " · ⏳审批中" : t.approval?.state==="approved" ? " · ✅已批" : t.approval?.state==="rejected" ? " · ❌已拒" : "");
   
-  document.getElementById("modalPhase").textContent = t.phase;
+  const sl = document.getElementById("subList");
+  if (!t.subs || t.subs.length === 0) {
+    sl.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:4px 0">暂无子任务，在备注中管理</div>';
+  } else {
+    sl.innerHTML = t.subs.map((s, i) => `
+      <div class="sub-row">
+        <input type="checkbox" ${s.done?"checked":""} onchange="toggleSub(${i})">
+        <span class="sub-text ${s.done?'done':''}">${esc(s.text)}</span>
+        <input class="result-input" value="${esc(s.result||'')}" placeholder="结果..." onchange="setSubResult(${i}, this.value)">
+      </div>
+    `).join("");
+  }
+  
+  // Approval section
+  const ap = t.approval || {state:"none", msg:"", time:""};
+  const asd = document.getElementById("approvalStatusDisplay");
+  const amd = document.getElementById("approvalMessageDisplay");
+  const bnt = document.getElementById("btnRequestApproval");
+  
+  if (ap.state === "none") {
+    asd.className = "approval-status none";
+    asd.textContent = "📋 未提交审批";
+    amd.textContent = "";
+    bnt.style.display = "block";
+  } else if (ap.state === "pending") {
+    asd.className = "approval-status pending";
+    asd.textContent = "⏳ 审批中… 已发送到手机，等待回复";
+    amd.textContent = "提交时间: " + (ap.time || "—");
+    bnt.style.display = "none";
+  } else if (ap.state === "approved") {
+    asd.className = "approval-status approved";
+    asd.textContent = "✅ 审批已通过";
+    amd.textContent = (ap.msg ? "回复: " + ap.msg : "") + (ap.time ? " · " + ap.time : "");
+    bnt.style.display = "none";
+  } else if (ap.state === "rejected") {
+    asd.className = "approval-status rejected";
+    asd.textContent = "❌ 审批已拒绝";
+    amd.textContent = (ap.msg ? "回复: " + ap.msg : "") + (ap.time ? " · " + ap.time : "");
+    bnt.style.display = "none";
+  }
+  
   document.getElementById("modalOverlay").classList.add("show");
 }
 
@@ -535,13 +432,13 @@ function toggleSub(idx) {
   if (!t) return;
   t.subs[idx].done = !t.subs[idx].done;
   saveData();
-  // Re-render modal
   openTask(editingId);
 }
 
 function setSubResult(idx, val) {
   const t = data.tasks.find(x => x.id === editingId);
   if (!t) return;
+  if (!t.subs[idx].result) t.subs[idx].result = "";
   t.subs[idx].result = val;
   saveData();
 }
@@ -553,14 +450,6 @@ function saveTask() {
   t.status = document.getElementById("editStatus").value;
   t.phase = document.getElementById("editPhase").value;
   t.note = document.getElementById("editNote").value;
-  
-  // Handle phase change: reorder
-  const idx = data.tasks.indexOf(t);
-  if (idx > -1) {
-    data.tasks.splice(idx, 1);
-    data.tasks.push(t);
-  }
-  
   saveData();
   closeModal();
 }
@@ -572,13 +461,48 @@ function deleteTask() {
   closeModal();
 }
 
+function requestApproval() {
+  const t = data.tasks.find(x => x.id === editingId);
+  if (!t) return;
+  if (!t.approval) t.approval = {state:"pending", msg:"", time:""};
+  t.approval.state = "pending";
+  t.approval.time = new Date().toLocaleString("zh-CN");
+  
+  // 保存通知到"待审批列表"
+  saveData();
+  
+  // 触发 Telegram 通知（页面自动发请求给后端）
+  sendApprovalToTelegram(t);
+  
+  openTask(editingId);
+}
+
+// Telegram 通知
+function sendApprovalToTelegram(task) {
+  const botToken = "8519277279:AAEqHYRHxpshvxDc_DfQnMGAsY2Hu2SL9Dg";
+  const chatId = "8764094372";
+  
+  const subsText = task.subs && task.subs.length > 0 
+    ? "\n子任务:\n" + task.subs.map((s,i) => `  ${s.done?'✅':'⬜'} ${s.text}${s.result?' → '+s.result:''}`).join("\n")
+    : "";
+  
+  const msg = `🐏 审批请求\n━━━━━━━━━━━━━━\n📌 任务: ${task.title}\n📂 阶段: ${task.phase}\n📝 备注: ${task.note||'—'}${subsText}\n━━━━━━━━━━━━━━\n\n同意 ✅ /agree_${task.id}\n拒绝 ❌ /reject_${task.id}`;
+  
+  fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: "Markdown" })
+  }).then(r => r.json()).then(d => {
+    console.log("Telegram通知已发送:", d.ok ? "成功" : "失败");
+  }).catch(e => console.log("Telegram错误:", e));
+}
+
 function esc(s) {
   const d = document.createElement("div");
   d.textContent = s || "";
   return d.innerHTML;
 }
 
-// Init
 render();
 </script>
 </body>
