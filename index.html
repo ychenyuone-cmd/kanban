@@ -18,6 +18,7 @@
   --border: #e8e8e0;
   --shadow: 0 2px 16px rgba(0,180,81,0.08);
   --radius: 12px;
+  --radius-sm: 8px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{
@@ -26,11 +27,10 @@ body{
   -webkit-font-smoothing:antialiased
 }
 
-/* Header - 蒙牛风格 */
+/* Header */
 header{
   background:#fff;border-bottom:1px solid var(--border);
-  position:sticky;top:0;z-index:100;
-  box-shadow:0 1px 4px rgba(0,0,0,.04)
+  position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.04)
 }
 .header-inner{
   max-width:1200px;margin:0 auto;padding:0 24px;
@@ -38,62 +38,80 @@ header{
 }
 .brand{display:flex;align-items:center;gap:10px}
 .brand .logo{font-size:24px}
-.brand .txt h1{font-size:18px;font-weight:600;color:var(--text)}
+.brand .txt h1{font-size:18px;font-weight:600}
 .brand .txt h1 span{color:var(--green)}
 .brand .txt small{font-size:11px;color:var(--text-light);display:block;margin-top:-1px}
 .header-nav{display:flex;align-items:center;gap:8px}
-.header-nav .item{
-  padding:6px 14px;font-size:13px;color:var(--text-light);
-  cursor:pointer;border-radius:6px;transition:.2s;text-decoration:none
-}
-.header-nav .item:hover{background:var(--green-light);color:var(--green)}
-.header-nav .item.active{color:var(--green);font-weight:500}
-.header-nav .btn-sm{
-  background:var(--green);color:#fff;border:none;
-  padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;transition:.2s;font-family:inherit
-}
-.header-nav .btn-sm:hover{background:var(--green-dark)}
 .header-nav .btn-sm-outline{
   background:transparent;color:var(--text-light);border:1px solid var(--border);
   padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;transition:.2s;font-family:inherit
 }
 .header-nav .btn-sm-outline:hover{border-color:var(--green);color:var(--green)}
 
-/* Main container */
-.main{max-width:1200px;margin:0 auto;padding:20px 24px}
+/* Main */
+.main{max-width:1200px;margin:0 auto;padding:20px 24px 40px}
 
-/* Section title */
-.section-title{
-  font-size:14px;font-weight:600;color:var(--text);margin-bottom:12px;
-  display:flex;align-items:center;gap:6px
+/* ===== 总进度条 ===== */
+.overall{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:24px 28px;margin-bottom:20px
 }
-.section-title .count{font-size:12px;color:var(--text-muted);font-weight:400}
+.overall-top{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:14px
+}
+.overall-title{font-size:15px;font-weight:600}
+.overall-title span{color:var(--green)}
+.overall-pct{
+  font-size:28px;font-weight:700;color:var(--green);line-height:1
+}
+.overall-bar{
+  height:8px;background:#e8e8e0;border-radius:4px;overflow:hidden;margin-bottom:10px
+}
+.overall-bar .fill{
+  height:100%;border-radius:4px;
+  background:linear-gradient(90deg,var(--green-light),var(--green));
+  transition:width .8s ease;position:relative
+}
+.overall-bar .fill::after{
+  content:'';position:absolute;top:0;right:0;width:20px;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.4));
+  border-radius:0 4px 4px 0
+}
+.overall-meta{
+  display:flex;justify-content:space-between;font-size:12px;color:var(--text-light)
+}
+.overall-meta .info{display:flex;gap:16px;flex-wrap:wrap}
+.overall-meta .info span{display:flex;align-items:center;gap:4px}
+.overall-meta .info .dot{
+  display:inline-block;width:6px;height:6px;border-radius:50%
+}
+.overall-meta .info .dot.g{background:var(--green)}
+.overall-meta .info .dot.o{background:#e67e22}
+.overall-meta .info .dot.r{background:#c0392b}
+.overall-meta .info .dot.b{background:#2980b9}
 
-/* Stats row */
+/* Stats row - 优化后4个简约卡片 */
 .stats-row{display:flex;gap:12px;margin-bottom:20px}
 .stat-box{
   background:var(--card);border:1px solid var(--border);
-  border-radius:var(--radius);padding:14px 20px;flex:1;min-width:0;
-  transition:.2s
+  border-radius:var(--radius);padding:14px 20px;flex:1;min-width:0;transition:.2s
 }
 .stat-box:hover{border-color:var(--green);box-shadow:var(--shadow)}
-.stat-box .num{font-size:28px;font-weight:700}
+.stat-box .num{font-size:26px;font-weight:700}
 .stat-box .label{font-size:12px;color:var(--text-light);margin-top:2px}
 .stat-box.s1 .num{color:var(--green)}
 .stat-box.s2 .num{color:#e67e22}
-.stat-box.s3 .num{color:#c0392b}
-.stat-box.s4 .num{color:#2980b9}
+.stat-box.s3 .num{color:#2980b9}
+.stat-box.s4 .num{color:var(--text-muted)}
 
-/* Phase flow - 蒙牛标签风格 */
-.phase-bar{
-  display:flex;gap:0;margin-bottom:20px;
+/* Phase bar - 带小进度条 */
+.phase-bar{display:flex;gap:0;margin-bottom:20px;
   background:var(--card);border:1px solid var(--border);
   border-radius:var(--radius);overflow:hidden
 }
 .phase-item{
   flex:1;padding:14px 12px;text-align:center;cursor:pointer;
-  transition:.2s;position:relative;
-  border-right:1px solid var(--border)
+  transition:.2s;position:relative;border-right:1px solid var(--border)
 }
 .phase-item:last-child{border-right:none}
 .phase-item:hover{background:var(--green-light)}
@@ -103,13 +121,16 @@ header{
   height:3px;background:var(--green);border-radius:3px 3px 0 0
 }
 .phase-item .icon{font-size:20px}
-.phase-item .name{font-size:13px;font-weight:500;margin-top:4px;color:var(--text)}
+.phase-item .name{font-size:13px;font-weight:500;margin-top:4px}
 .phase-item .meta{font-size:11px;color:var(--text-light);margin-top:2px}
-.phase-item .pct{font-size:11px;font-weight:600;color:var(--green);margin-top:2px}
-.phase-item .pct.done{color:var(--green)}
-.phase-item .pct.empty{color:var(--text-muted)}
+.phase-item .mini-bar{
+  height:3px;background:#e8e8e0;border-radius:2px;margin-top:6px;overflow:hidden
+}
+.phase-item .mini-bar .mf{
+  height:100%;border-radius:2px;transition:width .5s
+}
 
-/* Board - 三列 */
+/* Board */
 .board{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px}
 .column{
   background:var(--card);border:1px solid var(--border);
@@ -121,16 +142,16 @@ header{
   display:flex;align-items:center;gap:8px
 }
 .col-header .num{font-size:11px;color:var(--text-muted);font-weight:400}
-.col-body{padding:8px;min-height:120px}
+.col-body{padding:8px;min-height:80px}
 
 /* Card */
 .card{
   background:#fff;border:1px solid var(--border);
-  border-radius:8px;padding:12px 14px;margin-bottom:8px;
+  border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:8px;
   cursor:pointer;transition:.15s
 }
 .card:hover{border-color:var(--green);box-shadow:0 2px 8px rgba(0,180,81,.06)}
-.card .title{font-size:13px;font-weight:500;color:var(--text);line-height:1.4}
+.card .title{font-size:13px;font-weight:500;line-height:1.4}
 .card .tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
 .card .tag{
   font-size:10px;padding:2px 8px;border-radius:4px;
@@ -138,53 +159,47 @@ header{
 }
 .card .tag.green{background:var(--green-light);color:var(--green)}
 .card .tag.orange{background:#fef3e2;color:#e67e22}
-.card .tag.red{background:#fee;color:#c0392b}
+.card .tag.gray{background:#f0f0ec;color:var(--text-muted)}
 
-/* Modal - 蒙牛风格 */
+/* Modal */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:200;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.show{display:flex}
 .modal{
-  background:#fff;border-radius:16px;width:100%;max-width:500px;
+  background:#fff;border-radius:16px;width:100%;max-width:480px;
   max-height:80vh;overflow-y:auto;padding:28px;
   box-shadow:0 20px 60px rgba(0,0,0,.12)
 }
-.modal .modal-h{font-size:17px;font-weight:600;margin-bottom:4px}
-.modal .modal-sub{font-size:12px;color:var(--text-light);margin-bottom:16px}
-.modal label{display:block;font-size:12px;font-weight:500;color:var(--text);margin:12px 0 4px}
+.modal .modal-h{font-size:17px;font-weight:600;margin-bottom:2px}
+.modal .modal-sub{font-size:12px;color:var(--text-light);margin-bottom:14px}
+.modal label{display:block;font-size:12px;font-weight:500;margin:10px 0 4px}
 .modal input,.modal textarea,.modal select{
   width:100%;padding:10px 12px;border:1px solid var(--border);
-  border-radius:8px;font-size:13px;outline:none;
+  border-radius:var(--radius-sm);font-size:13px;outline:none;
   font-family:inherit;background:#fafcfa;transition:.2s
 }
 .modal input:focus,.modal textarea:focus,.modal select:focus{
   border-color:var(--green);background:#fff;box-shadow:0 0 0 3px rgba(0,180,81,.06)
 }
 .modal textarea{resize:vertical;min-height:50px}
-.modal .btn-row{display:flex;gap:8px;margin-top:16px}
+.modal .btn-row{display:flex;gap:8px;margin-top:14px}
 .modal .btn-row button{
-  flex:1;padding:10px;border:none;border-radius:8px;
+  flex:1;padding:10px;border:none;border-radius:var(--radius-sm);
   font-size:13px;cursor:pointer;transition:.2s;font-family:inherit;font-weight:500
 }
-.modal .btn-primary{background:var(--green);color:#fff}
-.modal .btn-primary:hover{background:var(--green-dark)}
-.modal .btn-danger{background:#fff2f2;color:#c0392b;border:1px solid #fdd}
-.modal .btn-ghost{background:#f5f5f0;color:var(--text)}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-dark)}
+.btn-danger{background:#fff2f2;color:#c0392b;border:1px solid #fdd}
+.btn-ghost{background:#f5f5f0;color:var(--text)}
 .sub-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f0f0eb}
 .sub-row input[type=checkbox]{width:15px;height:15px;accent-color:var(--green);cursor:pointer}
-.sub-row .sub-text{flex:1;font-size:12px;color:var(--text)}
+.sub-row .sub-text{flex:1;font-size:12px}
 .sub-row .sub-text.done{text-decoration:line-through;color:var(--text-muted)}
-.sub-row .result-inp{flex:1;padding:4px 8px;border:none;border-bottom:1px dashed #ddd;background:transparent;font-size:11px;outline:none;transition:.2s}
+.sub-row .result-inp{
+  flex:1;padding:4px 8px;border:none;border-bottom:1px dashed #ddd;
+  background:transparent;font-size:11px;outline:none;transition:.2s
+}
 .sub-row .result-inp:focus{border-bottom-color:var(--green)}
-
-/* Approval */
-.approval-sec{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
-.approval-sec h3{font-size:13px;font-weight:600;margin-bottom:8px}
-.approval-box{padding:10px 12px;border-radius:8px;font-size:12px;margin-bottom:6px}
-.approval-box.none{background:#f8f8f8;color:var(--text-light)}
-.approval-box.pending{background:#fef3e2;color:#e67e22}
-.approval-box.ok{background:var(--green-light);color:var(--green)}
-.approval-box.no{background:#fee;color:#c0392b}
-.approval-time{font-size:11px;color:var(--text-muted);margin-top:4px}
+.sub-row .result-inp::placeholder{color:#ccc}
 
 @media(max-width:768px){
   .board{grid-template-columns:1fr}
@@ -192,6 +207,8 @@ header{
   .stat-box{min-width:100px}
   .phase-bar{flex-wrap:wrap}
   .phase-item{min-width:80px;border-bottom:1px solid var(--border)}
+  .overall{padding:18px 20px}
+  .overall-pct{font-size:22px}
 }
 </style>
 </head>
@@ -201,22 +218,41 @@ header{
 <div class="header-inner">
 <div class="brand"><span class="logo">🐐</span><div class="txt"><h1>景甜 · <span>内蒙古特产</span></h1><small>拼多多电商运营</small></div></div>
 <div class="header-nav">
-<span class="item active">看板</span>
-<span class="item" onclick="exportData()">导出</span>
-<span class="item" onclick="document.getElementById('importFile').click()">导入</span>
+<span class="btn-sm-outline" onclick="exportData()">📥 导出</span>
+<span class="btn-sm-outline" onclick="document.getElementById('importFile').click()">📤 导入</span>
 <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
-<span class="btn-sm" id="approvalBtn" style="display:none">⏳ 待审批</span>
 </div>
 </div>
 </header>
 
 <div class="main">
 
+<!-- 总进度条 -->
+<div class="overall">
+<div class="overall-top">
+<div class="overall-title">📈 项目总进度 <span id="overallPctText">0%</span></div>
+<div class="overall-pct" id="overallPctNum">0%</div>
+</div>
+<div class="overall-bar"><div class="fill" id="overallBarFill" style="width:0%"></div></div>
+<div class="overall-meta">
+<div class="info">
+<span id="overallTasks">📋 0个任务</span>
+<span id="overallDoneTasks">✅ 0已完成</span>
+<span id="overallPhaseInfo">📊 0/6阶段</span>
+</div>
+<div class="info">
+<span id="overallDateInfo">📅 项目进行中</span>
+</div>
+</div>
+</div>
+
+<!-- 统计卡片 -->
 <div class="stats-row" id="statsRow"></div>
 
-<div class="section-title">📊 项目进度 <span class="count" id="phaseCount"></span></div>
+<!-- 阶段进度 -->
 <div class="phase-bar" id="phaseBar"></div>
 
+<!-- 看板三列 -->
 <div class="board">
 <div class="column">
 <div class="col-header"><span style="color:var(--green)">●</span> 待办 <span class="num" id="todoC">0</span></div>
@@ -227,34 +263,27 @@ header{
 <div class="col-body" id="colDoing"></div>
 </div>
 <div class="column">
-<div class="col-header"><span style="color:#999">●</span> 已完成 <span class="num" id="doneC">0</span></div>
+<div class="col-header"><span style="color:#2980b9">●</span> 已完成 <span class="num" id="doneC">0</span></div>
 <div class="col-body" id="colDone"></div>
 </div>
 </div>
 </div>
 
+<!-- Modal -->
 <div class="modal-overlay" id="modalOverlay">
 <div class="modal">
 <div class="modal-h" id="modalTitle">任务</div>
-<div class="modal-sub" id="modalSub">选择状态和阶段</div>
-<label>任务名称</label>
-<input id="editName">
+<div class="modal-sub" id="modalSub"></div>
+<label>任务名称</label><input id="editName">
 <label>状态</label>
 <select id="editStatus"><option value="todo">待办</option><option value="doing">进行中</option><option value="done">已完成</option></select>
-<label>阶段</label>
-<select id="editPhase"></select>
-<label>备注</label>
-<textarea id="editNote"></textarea>
+<label>阶段</label><select id="editPhase"></select>
+<label>备注</label><textarea id="editNote"></textarea>
 <label>子任务</label>
 <div id="subList"></div>
-<div class="approval-sec">
-<h3>📋 审批</h3>
-<div id="approvalDisplay"></div>
-<button class="btn-primary" id="btnApproval" onclick="reqApproval()" style="width:100%;padding:8px;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:500;font-size:12px;background:var(--green);color:#fff;margin-top:6px">📩 提交审批</button>
-</div>
 <div class="btn-row">
-<button class="btn-primary" onclick="save()">保存</button>
-<button class="btn-danger" onclick="del()">删除</button>
+<button class="btn-primary" onclick="save()">💾 保存</button>
+<button class="btn-danger" onclick="del()">🗑 删除</button>
 <button class="btn-ghost" onclick="closeModal()">取消</button>
 </div>
 </div>
@@ -262,76 +291,86 @@ header{
 
 <script>
 const PHASES=["准备","注册","选品","素材","上架","客服"];
-const PC=["#5B9BD5","#A78BDB","#D4835A","#C86A6A","#7DB356","#C58B5C"];
 const PI=["📋","📝","🔍","🎨","🚀","💬"];
 let eid=null,data=ld(),af=null;
 
 function df(){return{tasks:[
-{id:"t1",title:"准备注册资料",phase:"准备",status:"done",note:"身份证已拍照、手机号182xxx、工行卡已准备",subs:[{text:"身份证拍照",done:true,result:"已拍照"},{text:"手机号验证",done:true,result:"182xxx"},{text:"银行卡准备",done:true,result:"工行卡已准备"},{text:"备用店名确认",done:true,result:"原上草集"}],approval:{state:"approved",msg:"资料齐全",time:"04:30"}},
-{id:"t2",title:"安装Python环境",phase:"准备",status:"done",note:"Python 3.11.5 + pillow/rembg",subs:[{text:"安装Python",done:true,result:"3.11.5"},{text:"安装pillow",done:true,result:"已安装"},{text:"测试通过",done:true,result:"ok"}],approval:{state:"approved",msg:"环境就绪",time:"04:30"}},
-{id:"t3",title:"逛1688找供应商",phase:"选品",status:"doing",note:"找牛肉干/奶制品供应商",subs:[{text:"搜索牛肉干",done:true,result:"已搜索3家"},{text:"搜索奶制品",done:false},{text:"对比价格",done:false},{text:"联系询价",done:false}],approval:{state:"none"}},
-{id:"t4",title:"确定选品清单",phase:"选品",status:"todo",note:"",subs:[],approval:{state:"none"}},
-{id:"t5",title:"下载原图素材",phase:"素材",status:"todo",note:"从供应商拿图",subs:[],approval:{state:"none"}},
-{id:"t6",title:"设计Logo与品牌色",phase:"素材",status:"todo",note:"",subs:[],approval:{state:"none"}},
-{id:"t7",title:"注册拼多多店铺",phase:"注册",status:"todo",note:"商标: 原上草集",subs:[],approval:{state:"none"}},
-{id:"t8",title:"上传商品",phase:"上架",status:"todo",note:"",subs:[],approval:{state:"none"}},
-{id:"t9",title:"编写商品详情页",phase:"上架",status:"todo",note:"",subs:[],approval:{state:"none"}},
-{id:"t10",title:"配置客服话术",phase:"客服",status:"todo",note:"",subs:[],approval:{state:"none"}},
-{id:"t11",title:"运营推广",phase:"运营",status:"todo",note:"内容运营/社交推广",subs:[{text:"内容规划",done:false},{text:"社交推广",done:false}],approval:{state:"none"}}
-]}}
+{id:"t1",title:"准备注册资料",phase:"准备",status:"done",note:"身份证已拍照、手机号182xxx、工行卡已准备",subs:[{text:"身份证拍照",done:true,result:"已拍照"},{text:"手机号验证",done:true,result:"182xxx"},{text:"银行卡准备",done:true,result:"工行卡已准备"},{text:"备用店名确认",done:true,result:"原上草集"}]},
+{id:"t2",title:"安装Python环境",phase:"准备",status:"done",note:"Python3.11.5+pillow/rembg",subs:[{text:"安装Python",done:true,result:"3.11.5"},{text:"安装pillow",done:true,result:"已安装"},{text:"测试通过",done:true,result:"ok"}]},
+{id:"t3",title:"逛1688找供应商",phase:"选品",status:"doing",note:"找牛肉干/奶制品供应商",subs:[{text:"搜索牛肉干",done:true,result:"已搜索3家"},{text:"搜索奶制品",done:false},{text:"对比价格",done:false},{text:"联系询价",done:false}]},
+{id:"t4",title:"确定选品清单",phase:"选品",status:"todo",note:"",subs:[]},{id:"t5",title:"下载原图素材",phase:"素材",status:"todo",note:"从供应商拿图",subs:[]},{id:"t6",title:"设计Logo与品牌色",phase:"素材",status:"todo",note:"",subs:[]},{id:"t7",title:"注册拼多多店铺",phase:"注册",status:"todo",note:"商标:原上草集",subs:[]},{id:"t8",title:"上传商品",phase:"上架",status:"todo",note:"",subs:[]},{id:"t9",title:"编写商品详情页",phase:"上架",status:"todo",note:"",subs:[]},{id:"t10",title:"配置客服话术",phase:"客服",status:"todo",note:"",subs:[]},{id:"t11",title:"运营推广",phase:"运营",status:"todo",note:"内容运营/社交推广",subs:[{text:"内容规划",done:false},{text:"社交推广",done:false}]}]},startDate:"2026-04-24",targetDate:"2026-05-15"}
 function ld(){try{const r=localStorage.getItem("mg_kanban");if(r)return JSON.parse(r)}catch{}return df()}
 function sv(){localStorage.setItem("mg_kanban",JSON.stringify(data));rn()}
 function exp(){const b=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="内蒙古特产看板.json";a.click();URL.revokeObjectURL(a.href)}
-function imp(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{data=JSON.parse(ev.target.result);sv()}catch{alert("导入失败")}};r.readAsText(f)}
+function imp(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{data=JSON.parse(ev.target.result);sv()}catch{alert("导入失败:格式错误")}};r.readAsText(f)}
+
+function calcOverall(){
+  const t=data.tasks;
+  // 任务完成率
+  const total=t.length,done=t.filter(x=>x.status==="done").length;
+  const taskPct=total?Math.round(done/total*100):0;
+  // 阶段完成率：每个阶段全部done=1分
+  const phasesDone=PHASES.reduce((c,p)=>{const pt=t.filter(x=>x.phase===p);return c+(pt.length&&pt.every(x=>x.status==="done")?1:0)},0);
+  const phasePct=Math.round(phasesDone/PHASES.length*100);
+  // 日期进度
+  const sd=data.startDate||"2026-04-24",td=data.targetDate||"2026-05-15";
+  const s=new Date(sd),e=new Date(td),n=new Date();
+  const totalDays=Math.max(1,(e-s)/(864e5));
+  const elapsed=Math.max(0,Math.min(totalDays,(n-s)/(864e5)));
+  const datePct=Math.round(elapsed/totalDays*100);
+  // 综合 = 任务40% + 阶段40% + 日期20%
+  const pct=Math.round(taskPct*0.4+phasePct*0.4+datePct*0.2);
+  return{pct,taskPct,phasePct,datePct,total,done,phasesDone,totalPhases:PHASES.length,sd,td,elapsed:Math.round(elapsed),totalDays:Math.round(totalDays)}
+}
 
 function rn(){
   const t=data.tasks;
+  const o=calcOverall();
+  // 总进度条
+  document.getElementById("overallPctText").textContent=o.pct+"%";
+  document.getElementById("overallPctNum").textContent=o.pct+"%";
+  document.getElementById("overallBarFill").style.width=o.pct+"%";
+  document.getElementById("overallTasks").innerHTML="📋 "+o.total+"个任务";
+  document.getElementById("overallDoneTasks").innerHTML="✅ "+o.done+"已完成";
+  document.getElementById("overallPhaseInfo").innerHTML="📊 "+o.phasesDone+"/"+o.totalPhases+"阶段";
+  document.getElementById("overallDateInfo").innerHTML="📅 "+o.sd+" → "+o.td+"（第"+o.elapsed+"/"+o.totalDays+"天）";
+
   // Stats
+  const todo=t.filter(x=>x.status==="todo").length;
+  const doing=t.filter(x=>x.status==="doing").length;
+  const done=t.filter(x=>x.status==="done").length;
   document.getElementById("statsRow").innerHTML=[
-    {n:t.filter(x=>x.status==="todo").length,l:"待办",c:"s1"},
-    {n:t.filter(x=>x.status==="doing").length,l:"进行中",c:"s2"},
-    {n:t.filter(x=>x.status==="done").length,l:"已完成",c:"s3"},
-    {n:t.length,l:"总计",c:"s4"}
+    {n:todo,l:"待办",c:"s2"},{n:doing,l:"进行中",c:"s1"},{n:done,l:"已完成",c:"s3"},{n:t.length,l:"总计",c:"s4"}
   ].map(s=>`<div class="stat-box ${s.c}"><div class="num">${s.n}</div><div class="label">${s.l}</div></div>`).join("");
-  
+
   // Phase bar
   document.getElementById("phaseBar").innerHTML=PHASES.map((p,i)=>{
     const pt=t.filter(x=>x.phase===p),d=pt.filter(x=>x.status==="done").length,tl=pt.length;
     const pct=tl?Math.round(d/tl*100):0;
-    return `<div class="phase-item${af===p?' active':''}" onclick="fp('${p}')">
-      <div class="icon">${PI[i]}</div>
-      <div class="name">${p}</div>
-      <div class="meta">${d}/${tl} 完成</div>
-      <div class="pct${pct===0?' empty':''}">${pct}%</div>
-    </div>`;
+    const baseColor=["#5B9BD5","#A78BDB","#D4835A","#C86A6A","#7DB356","#C58B5C"][i];
+    return '<div class="phase-item'+(af===p?' active':'')+'" onclick="fp(\''+p+'\')">'+
+      '<div class="icon">'+PI[i]+'</div>'+
+      '<div class="name">'+p+'</div>'+
+      '<div class="meta">'+d+'/'+tl+'</div>'+
+      '<div class="mini-bar"><div class="mf" style="width:'+pct+'%;background:'+baseColor+'"></div></div>'+
+      '</div>';
   }).join("");
-  
-  document.getElementById("phaseCount").textContent=`(${t.length}个任务)`;
-  
-  // Approval badge
-  const pa=t.filter(x=>x.approval&&x.approval.state==="pending");
-  const ab=document.getElementById("approvalBtn");
-  ab.style.display=pa.length?"inline":"none";
-  if(pa.length)ab.textContent=`⏳ ${pa.length}个待审批`;
-  
   rc();
 }
 
 function rc(){
   const t=data.tasks;
+  // 应用阶段筛选
   const fi=af?t.filter(x=>x.phase===af):t;
   ["todo","doing","done"].forEach(st=>{
-    const el=document.getElementById({todo:"colTodo",doing:"colDoing",done:"colDone"}[st]);
-    const item=fi.filter(x=>x.status===st);
-    el.innerHTML=item.map(x=>{
-      const ap=x.approval||{};
-      const sd=x.subs.filter(s=>s.done).length,stl=x.subs.length;
-      let tag='<span class="tag">'+x.phase+'</span>';
-      if(stl)tag+='<span class="tag green">✓ '+sd+'/'+stl+'</span>';
-      if(ap.state==="pending")tag+='<span class="tag orange">⏳审批</span>';
-      else if(ap.state==="approved")tag+='<span class="tag green">已批</span>';
-      else if(ap.state==="rejected")tag+='<span class="tag red">已拒</span>';
-      return '<div class="card" onclick="ot(\''+x.id+'\')"><div class="title">'+es(x.title)+'</div><div class="tags">'+tag+'</div></div>';
+    const colId={todo:"colTodo",doing:"colDoing",done:"colDone"}[st];
+    const el=document.getElementById(colId);
+    const items=fi.filter(x=>x.status===st);
+    el.innerHTML=items.map(x=>{
+      const sdc=x.subs.filter(s=>s.done).length,sdl=x.subs.length;
+      let tags='<span class="tag">'+x.phase+'</span>';
+      if(sdl)tags+='<span class="tag green">✓'+sdc+'/'+sdl+'</span>';
+      return '<div class="card" onclick="ot(\''+x.id+'\')"><div class="title">'+esc(x.title)+'</div><div class="tags">'+tags+'</div></div>';
     }).join("");
   });
   document.getElementById("todoC").textContent=fi.filter(x=>x.status==="todo").length;
@@ -339,7 +378,13 @@ function rc(){
   document.getElementById("doneC").textContent=fi.filter(x=>x.status==="done").length;
 }
 
-function fp(p){af=(af===p)?null:p;document.querySelectorAll(".phase-item").forEach(el=>el.classList.remove("active"));const el=document.querySelector('.phase-item[onclick="fp(\''+p+'\')"]');if(el)el.classList.add("active");rc()}
+function fp(p){
+  const items=document.querySelectorAll(".phase-item");
+  if(af===p){af=null;items.forEach(el=>el.classList.remove("active"))}
+  else{items.forEach(el=>el.classList.remove("active"));af=p;items.forEach(el=>{if(el.textContent.includes(p))el.classList.add("active")})}
+  rc()
+}
+function fp(p){af=(af===p)?null:p;const items=document.querySelectorAll(".phase-item");items.forEach(el=>el.classList.remove("active"));items.forEach(el=>{if(el.textContent.includes(af||"__none__"))el.classList.add("active")});rc()}
 
 function ot(id){
   const t=data.tasks.find(x=>x.id===id);if(!t)return;eid=id;
@@ -348,27 +393,19 @@ function ot(id){
   document.getElementById("editStatus").value=t.status;
   document.getElementById("editPhase").innerHTML=PHASES.map(p=>'<option value="'+p+'"'+(p===t.phase?'selected':'')+'>'+p+'</option>').join("");
   document.getElementById("editNote").value=t.note||"";
-  document.getElementById("modalSub").textContent=t.phase+(t.approval?.state==="pending"?" · 审批中":t.approval?.state==="approved"?" · 已审批":"");
-  
+  const sdc=t.subs.filter(s=>s.done).length,sdl=t.subs.length;
+  document.getElementById("modalSub").textContent=t.phase+(sdl?" · 子任务 "+sdc+"/"+sdl:"");
   const sl=document.getElementById("subList");
-  if(!t.subs||!t.subs.length)sl.innerHTML='<div style="font-size:12px;color:var(--text-muted);padding:4px 0">暂无子任务</div>';
-  else sl.innerHTML=t.subs.map((s,i)=>'<div class="sub-row"><input type="checkbox"'+(s.done?" checked":"")+' onchange="ts('+i+')"><span class="sub-text'+(s.done?" done":"")+'">'+es(s.text)+'</span><input class="result-inp" value="'+es(s.result||"")+'" placeholder="结果" onchange="sr('+i+',this.value)"></div>').join("");
-  
-  const ap=t.approval||{state:"none"};const ad=document.getElementById("approvalDisplay");const ba=document.getElementById("btnApproval");
-  if(ap.state==="none"){ad.innerHTML='<div class="approval-box none">📋 未提交审批</div>';ba.style.display="block"}
-  else if(ap.state==="pending"){ad.innerHTML='<div class="approval-box pending">⏳ 审批中</div><div class="approval-time">提交: '+ap.time+'</div>';ba.style.display="none"}
-  else if(ap.state==="approved"){ad.innerHTML='<div class="approval-box ok">✅ 已通过'+(ap.msg?' · '+ap.msg:'')+'</div><div class="approval-time">'+ap.time+'</div>';ba.style.display="none"}
-  else{ad.innerHTML='<div class="approval-box no">❌ 已拒绝'+(ap.msg?' · '+ap.msg:'')+'</div><div class="approval-time">'+ap.time+'</div>';ba.style.display="none"}
-  
+  if(!t.subs||!t.subs.length){sl.innerHTML='<div style="font-size:12px;color:var(--text-muted);padding:4px 0">暂无子任务</div>'}
+  else{sl.innerHTML=t.subs.map((s,i)=>'<div class="sub-row"><input type="checkbox"'+(s.done?" checked":"")+' onchange="ts('+i+')"><span class="sub-text'+(s.done?" done":"")+'">'+esc(s.text)+'</span><input class="result-inp" value="'+esc(s.result||"")+'" placeholder="结果" onchange="sr('+i+',this.value)"></div>').join("")}
   document.getElementById("modalOverlay").classList.add("show");
 }
 function cm(){document.getElementById("modalOverlay").classList.remove("show");eid=null}
 function ts(i){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.subs[i].done=!t.subs[i].done;sv();ot(eid)}
 function sr(i,v){const t=data.tasks.find(x=>x.id===eid);if(!t)return;if(!t.subs[i].result)t.subs[i].result="";t.subs[i].result=v;sv()}
 function save(){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.title=document.getElementById("editName").value.trim()||t.title;t.status=document.getElementById("editStatus").value;t.phase=document.getElementById("editPhase").value;t.note=document.getElementById("editNote").value;sv();cm()}
-function del(){if(!confirm("确定删除？"))return;data.tasks=data.tasks.filter(t=>t.id!==eid);sv();cm()}
-function reqApproval(){const t=data.tasks.find(x=>x.id===eid);if(!t)return;if(!t.approval)t.approval={};t.approval.state="pending";t.approval.time=new Date().toLocaleString("zh-CN");sv();ot(eid)}
-function es(s){const d=document.createElement("div");d.textContent=s||"";return d.innerHTML}
+function del(){if(!confirm("确定删除此任务？"))return;data.tasks=data.tasks.filter(t=>t.id!==eid);sv();cm()}
+function esc(s){const d=document.createElement("div");d.textContent=s||"";return d.innerHTML}
 rn();
 </script>
 </body>
