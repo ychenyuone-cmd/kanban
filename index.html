@@ -471,7 +471,7 @@ function requestApproval() {
   // 保存通知到"待审批列表"
   saveData();
   
-  // 触发 Telegram 通知（页面自动发请求给后端）
+  // 触发审批桥接器（通知WSL发Telegram）
   sendApprovalToTelegram(t);
   
   openTask(editingId);
@@ -479,23 +479,42 @@ function requestApproval() {
 
 // Telegram 通知
 function sendApprovalToTelegram(task) {
-  const botToken = "8519277279:AAEqHYRHxpshvxDc_DfQnMGAsY2Hu2SL9Dg";
-  const chatId = "8764094372";
-  
-  const subsText = task.subs && task.subs.length > 0 
-    ? "\n子任务:\n" + task.subs.map((s,i) => `  ${s.done?'✅':'⬜'} ${s.text}${s.result?' → '+s.result:''}`).join("\n")
-    : "";
-  
-  const msg = `🐏 审批请求\n━━━━━━━━━━━━━━\n📌 任务: ${task.title}\n📂 阶段: ${task.phase}\n📝 备注: ${task.note||'—'}${subsText}\n━━━━━━━━━━━━━━\n\n同意 ✅ /agree_${task.id}\n拒绝 ❌ /reject_${task.id}`;
-  
-  fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: "Markdown" })
-  }).then(r => r.json()).then(d => {
-    console.log("Telegram通知已发送:", d.ok ? "成功" : "失败");
-  }).catch(e => console.log("Telegram错误:", e));
+  // 通过WSL桥接器发送，看板只负责写标记
+  // WSL的定时任务会检测到pending并发送
+  console.log("审批已提交，等待桥接器发送通知");
 }
+
+// 定期检查审批结果（从本地WSL读取）
+function checkApprovalResults() {
+  // 找所有审批中的任务
+  const pendingTasks = data.tasks.filter(t => t.approval?.state === "pending");
+  if (pendingTasks.length === 0) return;
+  
+  pendingTasks.forEach(t => {
+    // 尝试从 localhost API 拉取结果
+    // 如果用户提交了审批，WSL会写入结果文件，页面需要告诉WSL去检查
+    // 页面触发拉取：通过JSONP方式通知WSL
+    const img = new Image();
+    img.src = `http://localhost:18792/api/${t.id}`;
+    img.onload = () => {
+      // 图片加载完说明WSL有结果了，但我们需要文本响应
+      // 改用fetch
+      fetch(`http://localhost:18792/api/${t.id}`)
+        .then(r => r.json())
+        .then(d => {
+          if (d.result === "approved" || d.result === "rejected") {
+            t.approval.state = d.result;
+            if (d.msg) t.approval.msg = d.msg;
+            saveData();
+          }
+        })
+        .catch(() => {});
+    };
+  });
+}
+
+// 定期检查
+setInterval(checkApprovalResults, 10000);
 
 function esc(s) {
   const d = document.createElement("div");
