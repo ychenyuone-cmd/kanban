@@ -257,7 +257,7 @@ function rc(){
 function fp(p){
   document.querySelectorAll(".phase-item").forEach(el=>el.classList.remove("active"));
   af=(af===p)?null:p;
-  if(af){const el=document.querySelector('.phase-item[onclick="fp(\''+p+'\')"]');if(el)el.classList.add("active")}
+  if(af){document.querySelectorAll(".phase-item").forEach(el=>{if(el.textContent.includes(p))el.classList.add("active")})}
   rc();
 }
 
@@ -271,6 +271,9 @@ function ot(id){
   const sdc=t.subs.filter(s=>s.done).length,sdl=t.subs.length;
   document.getElementById("mS").textContent=t.phase+(sdl?" · 子任务 "+sdc+"/"+sdl:"");
   const sl=document.getElementById("sL");
+  const subAddHtml='<div style="display:flex;gap:6px;margin-top:6px">'+
+    '<input id="nSI_'+id+'" placeholder="新增子任务…" style="flex:1;padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;outline:none">'+
+    '<button onclick="as(\''+id+'\')" style="border:none;background:var(--green);color:#fff;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:inherit">+ 添加</button></div>';
   if(t.subs&&t.subs.length){
     sl.innerHTML=t.subs.map((s,i)=>
       '<div class="sub-row"><input type="checkbox"'+(s.done?" checked":"")+' onchange="ts('+i+')">'+
@@ -278,20 +281,16 @@ function ot(id){
       '<input class="ri" value="'+es(s.result||"")+'" placeholder="结果" onchange="sr('+i+',this.value)">'+
       '<span onclick="ds('+i+')" style="color:#aaa;cursor:pointer;font-size:16px;line-height:1">×</span></div>'
     ).join("");
-    sl.innerHTML+='<div style="display:flex;gap:6px;margin-top:6px">'+
-      '<input id="nSI" placeholder="新增子任务…" style="flex:1;padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;outline:none">'+
-      '<button onclick="as()" style="border:none;background:var(--green);color:#fff;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:inherit">+ 添加</button></div>';
+    sl.innerHTML+=subAddHtml;
   }else{
     t.subs=[];
-    sl.innerHTML='<div style="display:flex;gap:6px;margin-top:6px">'+
-      '<input id="nSI" placeholder="新增子任务…" style="flex:1;padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;outline:none">'+
-      '<button onclick="as()" style="border:none;background:var(--green);color:#fff;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:inherit">+ 添加</button></div>';
+    sl.innerHTML=subAddHtml;
   }
   document.getElementById("mO").classList.add("show");
 }
 
 function cm(){document.getElementById("mO").classList.remove("show");rn();eid=null}
-function as(){const t=data.tasks.find(x=>x.id===eid);if(!t)return;const inp=document.getElementById("nSI");const txt=inp.value.trim();if(!txt)return;if(!t.subs)t.subs=[];t.subs.push({text:txt,done:false,result:""});sv();ot(eid)}
+function as(id){const t=data.tasks.find(x=>x.id===id);if(!t)return;const inp=document.getElementById("nSI_"+id);const txt=inp?(inp.value.trim()):"";if(!txt)return;if(!t.subs)t.subs=[];t.subs.push({text:txt,done:false,result:""});sv();ot(id)}
 function ds(i){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.subs.splice(i,1);sv();ot(eid)}
 function ts(i){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.subs[i].done=!t.subs[i].done;sv();ot(eid)}
 function sr(i,v){const t=data.tasks.find(x=>x.id===eid);if(!t)return;if(!t.subs[i].result)t.subs[i].result="";t.subs[i].result=v;sv()}
