@@ -127,17 +127,29 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 // 硬编码默认数据 - 包含之前确认的所有信息
 const DEF={
   tasks:[
-    {id:"t1",title:"品牌定位与命名",phase:"准备",status:"doing",note:"品牌名: 原上草集, 确定品牌调性",subs:[{text:"品牌名确认",done:true,result:"原上草集"},{text:"品牌色确定",done:true,result:"#00b451"},{text:"品牌故事框架",done:false}]},
-    {id:"t2",title:"设计商品抓取模块",phase:"准备",status:"todo",note:"1688商品数据抓取, 解决登录态问题",subs:[{text:"书签脚本方案",done:false},{text:"本地HTTP接收服务",done:false}]},
-    {id:"t3",title:"搭建AI改写文案流程",phase:"准备",status:"todo",note:"属性→卖点文案, SEO标题优化",subs:[{text:"GPT提示词模板",done:false},{text:"批量改写脚本",done:false}]},
-    {id:"t4",title:"注册图片处理API",phase:"选品",status:"todo",note:"硅基流动/通义千问/remove.bg, 需要API key",subs:[{text:"对比各平台免费额度",done:false},{text:"注册账号",done:false},{text:"获取API key并配置",done:false}]},
-    {id:"t5",title:"搭建图片自动处理流水线",phase:"素材",status:"todo",note:"抠图→换背景→加卖点文字→输出品牌图",subs:[{text:"抠图模块",done:false},{text:"AI生成场景图",done:false},{text:"叠加品牌标和卖点",done:false},{text:"批量处理脚本",done:false}]},
+    {id:"t1",title:"品牌定位与命名",phase:"准备",status:"doing",note:"品牌名: 原上草集, 品牌色: #00b451",subs:[{text:"品牌名确认",done:true,result:"原上草集"},{text:"品牌色确定",done:true,result:"#00b451"},{text:"品牌故事框架",done:false}]},
+    {id:"t2",title:"1688商品数据抓取方案",phase:"准备",status:"todo",note:"解决登录态问题, 用户配合抓取",subs:[{text:"书签脚本方案",done:false},{text:"本地HTTP接收服务",done:false}]},
+    {id:"t3",title:"搭建AI改写文案流程",phase:"准备",status:"todo",note:"属性→卖点文案, SEO标题优化, 需GPT API",subs:[{text:"提示词模板设计",done:false},{text:"批量改写脚本",done:false}]},
+    {id:"t4",title:"注册图片处理API",phase:"选品",status:"todo",note:"硅基流动/通义千问/remove.bg, 需要API key",subs:[{text:"对比免费额度",done:false},{text:"注册账号拿key",done:false},{text:"配置到系统",done:false}]},
+    {id:"t5",title:"商品图获取自动化及部署",phase:"素材",status:"doing",note:"核心流水线: 选品链接→解析→AI标题→抠图→换场景→品牌化→出素材包",subs:[
+      {text:"子任务: 商品解析模块设计",done:false,result:"流程已梳理"},
+      {text:"子任务: AI标题系统设计",done:false,result:"流程已梳理"},
+      {text:"子任务: 图片重构模块设计",done:false,result:"流程已梳理"},
+      {text:"子任务: 素材包生成模块设计",done:false,result:"流程已梳理"},
+      {text:"编码实现: 商品解析(抓取)",done:false},
+      {text:"编码实现: AI改写标题",done:false},
+      {text:"编码实现: 图片抠图+换背景",done:false},
+      {text:"编码实现: 叠品牌标+卖点文字",done:false},
+      {text:"编码实现: 素材包输出",done:false},
+      {text:"全流程串联测试",done:false},
+      {text:"部署上线",done:false}
+    ]},
     {id:"t6",title:"设计商品详情页模板",phase:"素材",status:"todo",note:"统一的品牌视觉模板, 含场景图+卖点结构",subs:[]},
     {id:"t7",title:"注册拼多多店铺",phase:"注册",status:"todo",note:"商标: 原上草集",subs:[]},
     {id:"t8",title:"上传商品到拼多多",phase:"上架",status:"todo",note:"首款单品: 牛肉干",subs:[{text:"准备上传素材包",done:false},{text:"配置SKU/价格",done:false}]},
     {id:"t9",title:"运营推广",phase:"运营",status:"todo",note:"内容运营/社交推广",subs:[{text:"内容规划",done:false},{text:"社交推广",done:false},{text:"付费投流",done:false}]},
     {id:"t10",title:"配置客服话术",phase:"客服",status:"todo",note:"售前/售后话术模板",subs:[]},
-    {id:"t11",title:"自动化内容工厂搭建",phase:"运营",status:"todo",note:"全流程串联: 抓取→文案→图片→输出→上架",subs:[{text:"模块串联",done:false},{text:"定时任务配置",done:false},{text:"异常处理",done:false}]}
+    {id:"t11",title:"自动化内容工厂全流程串联",phase:"运营",status:"todo",note:"抓取→文案→图片→输出→上架 全自动",subs:[{text:"模块串联",done:false},{text:"定时任务配置",done:false},{text:"异常处理",done:false}]}
   ],
   startDate:"2026-04-25",
   targetDate:"2026-05-31"
