@@ -401,7 +401,7 @@ function ot(id){
       '<div style="display:flex;gap:6px;margin-top:6px"><input id="newSubInput" placeholder="新增子任务…" style="flex:1;padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;outline:none"><button onclick="addSub()" style="border:none;background:var(--green);color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-family:inherit">+ 添加</button></div>'}
   document.getElementById("modalOverlay").classList.add("show");
 }
-function cm(){document.getElementById("modalOverlay").classList.remove("show");eid=null}
+function cm(){document.getElementById("modalOverlay").classList.remove("show");rn();eid=null}
 function addSub(){const t=data.tasks.find(x=>x.id===eid);if(!t)return;const inp=document.getElementById("newSubInput");const txt=inp.value.trim();if(!txt)return;if(!t.subs)t.subs=[];t.subs.push({text:txt,done:false,result:""});sv();ot(eid)}
 function delSub(i){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.subs.splice(i,1);sv();ot(eid)}
 function ts(i){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.subs[i].done=!t.subs[i].done;sv();ot(eid)}
