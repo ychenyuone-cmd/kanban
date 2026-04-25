@@ -127,20 +127,20 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 // 硬编码默认数据 - 包含之前确认的所有信息
 const DEF={
   tasks:[
-    {id:"t1",title:"准备注册资料",phase:"准备",status:"done",note:"身份证已拍照、手机号182xxx、工行卡已准备",subs:[{text:"身份证拍照",done:true,result:"已拍照"},{text:"手机号验证",done:true,result:"182xxx"},{text:"银行卡准备",done:true,result:"工行卡已准备"},{text:"备用店名确认",done:true,result:"原上草集"}]},
-    {id:"t2",title:"安装Python环境",phase:"准备",status:"done",note:"Python 3.11.5 + pillow/rembg",subs:[{text:"安装Python",done:true,result:"3.11.5"},{text:"安装pillow",done:true,result:"已安装"},{text:"测试通过",done:true,result:"ok"}]},
-    {id:"t3",title:"逛1688找供应商",phase:"选品",status:"doing",note:"找牛肉干/奶制品供应商",subs:[{text:"搜索牛肉干",done:true,result:"已搜索3家"},{text:"搜索奶制品",done:false},{text:"对比价格",done:false},{text:"联系询价",done:false}]},
-    {id:"t4",title:"确定选品清单",phase:"选品",status:"todo",note:"",subs:[]},
-    {id:"t5",title:"下载原图素材",phase:"素材",status:"todo",note:"从供应商拿图",subs:[]},
-    {id:"t6",title:"设计Logo与品牌色",phase:"素材",status:"todo",note:"",subs:[]},
+    {id:"t1",title:"品牌定位与命名",phase:"准备",status:"doing",note:"品牌名: 原上草集, 确定品牌调性",subs:[{text:"品牌名确认",done:true,result:"原上草集"},{text:"品牌色确定",done:true,result:"#00b451"},{text:"品牌故事框架",done:false}]},
+    {id:"t2",title:"设计商品抓取模块",phase:"准备",status:"todo",note:"1688商品数据抓取, 解决登录态问题",subs:[{text:"书签脚本方案",done:false},{text:"本地HTTP接收服务",done:false}]},
+    {id:"t3",title:"搭建AI改写文案流程",phase:"准备",status:"todo",note:"属性→卖点文案, SEO标题优化",subs:[{text:"GPT提示词模板",done:false},{text:"批量改写脚本",done:false}]},
+    {id:"t4",title:"注册图片处理API",phase:"选品",status:"todo",note:"硅基流动/通义千问/remove.bg, 需要API key",subs:[{text:"对比各平台免费额度",done:false},{text:"注册账号",done:false},{text:"获取API key并配置",done:false}]},
+    {id:"t5",title:"搭建图片自动处理流水线",phase:"素材",status:"todo",note:"抠图→换背景→加卖点文字→输出品牌图",subs:[{text:"抠图模块",done:false},{text:"AI生成场景图",done:false},{text:"叠加品牌标和卖点",done:false},{text:"批量处理脚本",done:false}]},
+    {id:"t6",title:"设计商品详情页模板",phase:"素材",status:"todo",note:"统一的品牌视觉模板, 含场景图+卖点结构",subs:[]},
     {id:"t7",title:"注册拼多多店铺",phase:"注册",status:"todo",note:"商标: 原上草集",subs:[]},
-    {id:"t8",title:"上传商品",phase:"上架",status:"todo",note:"",subs:[]},
-    {id:"t9",title:"编写商品详情页",phase:"上架",status:"todo",note:"",subs:[]},
-    {id:"t10",title:"配置客服话术",phase:"客服",status:"todo",note:"",subs:[]},
-    {id:"t11",title:"运营推广",phase:"运营",status:"todo",note:"内容运营/社交推广",subs:[{text:"内容规划",done:false},{text:"社交推广",done:false}]}
+    {id:"t8",title:"上传商品到拼多多",phase:"上架",status:"todo",note:"首款单品: 牛肉干",subs:[{text:"准备上传素材包",done:false},{text:"配置SKU/价格",done:false}]},
+    {id:"t9",title:"运营推广",phase:"运营",status:"todo",note:"内容运营/社交推广",subs:[{text:"内容规划",done:false},{text:"社交推广",done:false},{text:"付费投流",done:false}]},
+    {id:"t10",title:"配置客服话术",phase:"客服",status:"todo",note:"售前/售后话术模板",subs:[]},
+    {id:"t11",title:"自动化内容工厂搭建",phase:"运营",status:"todo",note:"全流程串联: 抓取→文案→图片→输出→上架",subs:[{text:"模块串联",done:false},{text:"定时任务配置",done:false},{text:"异常处理",done:false}]}
   ],
-  startDate:"2026-04-24",
-  targetDate:"2026-05-15"
+  startDate:"2026-04-25",
+  targetDate:"2026-05-31"
 };
 
 // localStorage: 用 mg_kanban
@@ -183,7 +183,7 @@ function syncData(){
   }catch(e){}
 }
 
-const PHASES=["准备","注册","选品","素材","上架","客服"];
+const PHASES=["准备","选品","素材","注册","上架","客服"];
 const PI=["📋","📝","🔍","🎨","🚀","💬"];
 const PC=["#5B9BD5","#A78BDB","#D4835A","#C86A6A","#7DB356","#C58B5C"];
 let eid=null,af=null;
