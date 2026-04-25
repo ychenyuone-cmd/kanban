@@ -167,9 +167,20 @@ let data=ld();
 
 function sv(){
   try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}catch(e){}
-  // 同步到助手 - 用sendBeacon绕过跨域限制
-  try{var b=new Blob([JSON.stringify(data)],{type:'application/json'});navigator.sendBeacon('http://127.0.0.1:18888/sync',b);}catch(e){}
+  // 同步到助手 - 用Image ping绕过跨域限制
+  syncData();
   rn();
+}
+
+function syncData(){
+  try{
+    var d=JSON.stringify(data);
+    // 尝试多种方式绕过mixed content限制
+    // 1. fetch no-cors
+    fetch('http://127.0.0.1:18888/sync',{method:'POST',body:d,mode:'no-cors',credentials:'omit'}).catch(function(){});
+    // 2. XMLHttpRequest 备用
+    try{var x=new XMLHttpRequest();x.open('POST','http://127.0.0.1:18888/sync',true);x.send(d);}catch(e2){}
+  }catch(e){}
 }
 
 const PHASES=["准备","注册","选品","素材","上架","客服"];
