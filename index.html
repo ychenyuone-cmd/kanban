@@ -269,7 +269,7 @@ function ot(id){
   document.getElementById("eS").value=t.status;
   document.getElementById("eP").innerHTML=PHASES.map(p=>'<option value="'+p+'"'+(p===t.phase?'selected':'')+'>'+p+'</option>').join("");
   document.getElementById("eNo").value=t.note||"";
-  document.getElementById("eD").value=t.dueDate||"";
+  document.getElementById("eD").value=t.dueDate||new Date().toISOString().slice(0,10);
   const sdc=t.subs.filter(s=>s.done).length,sdl=t.subs.length;
   document.getElementById("mS").textContent=t.phase+(sdl?" · 子任务 "+sdc+"/"+sdl:"");
   const sl=document.getElementById("sL");
