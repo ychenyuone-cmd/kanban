@@ -103,9 +103,9 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 <div class="phase-bar" id="pB"></div>
 
 <div class="board">
-<div class="column"><div class="col-header"><span style="color:var(--green)">●</span> 待办 <span class="num" id="tc">0</span></div><div class="col-body" id="cT"></div></div>
-<div class="column"><div class="col-header"><span style="color:#e67e22">●</span> 进行中 <span class="num" id="dc">0</span></div><div class="col-body" id="cD"></div></div>
-<div class="column"><div class="col-header"><span style="color:#2980b9">●</span> 已完成 <span class="num" id="nc">0</span></div><div class="col-body" id="cN"></div></div>
+<div class="column"><div class="col-header"><span style="color:var(--green)">●</span> 待办 <span class="num" id="tc">0</span><span style="margin-left:auto;cursor:pointer;font-size:16px;color:var(--green);font-weight:400" onclick="addTask('todo')">+</span></div><div class="col-body" id="cT"></div></div>
+<div class="column"><div class="col-header"><span style="color:#e67e22">●</span> 进行中 <span class="num" id="dc">0</span><span style="margin-left:auto;cursor:pointer;font-size:16px;color:#e67e22;font-weight:400" onclick="addTask('doing')">+</span></div><div class="col-body" id="cD"></div></div>
+<div class="column"><div class="col-header"><span style="color:#2980b9">●</span> 已完成 <span class="num" id="nc">0</span><span style="margin-left:auto;cursor:pointer;font-size:16px;color:#2980b9;font-weight:400" onclick="addTask('done')">+</span></div><div class="col-body" id="cN"></div></div>
 </div></div>
 
 <div class="modal-overlay" id="mO"><div class="modal">
@@ -296,6 +296,14 @@ function ts(i){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.subs[i].don
 function sr(i,v){const t=data.tasks.find(x=>x.id===eid);if(!t)return;if(!t.subs[i].result)t.subs[i].result="";t.subs[i].result=v;sv()}
 function svTask(){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.title=document.getElementById("eN").value.trim()||t.title;t.status=document.getElementById("eS").value;t.phase=document.getElementById("eP").value;t.note=document.getElementById("eNo").value;sv();cm()}
 function dl(){if(!confirm("确定删除此任务？"))return;data.tasks=data.tasks.filter(t=>t.id!==eid);sv();cm()}
+function addTask(status){
+  const ids=data.tasks.map(t=>{const n=parseInt(t.id.replace("t",""));return isNaN(n)?0:n});
+  const nextId=Math.max(0,...ids)+1;
+  data.tasks.push({id:"t"+nextId,title:"新任务",phase:"准备",status:status,note:"",subs:[]});
+  sv();
+  // 自动打开编辑
+  ot("t"+nextId);
+}
 function es(s){const d=document.createElement("div");d.textContent=s||"";return d.innerHTML}
 rn();
 </script></body></html>
