@@ -167,8 +167,8 @@ let data=ld();
 
 function sv(){
   try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}catch(e){}
-  // 同步到助手
-  try{fetch('http://localhost:18888/sync',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(function(){})}catch(e){}
+  // 同步到助手 - 用sendBeacon绕过跨域限制
+  try{var b=new Blob([JSON.stringify(data)],{type:'application/json'});navigator.sendBeacon('http://127.0.0.1:18888/sync',b);}catch(e){}
   rn();
 }
 
