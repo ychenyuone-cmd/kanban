@@ -83,6 +83,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 <header><div class="header-inner">
 <div class="brand"><span class="logo">🐐</span><div class="txt"><h1>景甜 · <span>内蒙古特产</span></h1><small>拼多多电商运营</small></div></div>
 <div class="header-nav">
+<span class="btn-out" onclick="sy()">🔄 同步</span>
 <span class="btn-out" onclick="ex()">📥 导出</span>
 <span class="btn-out" onclick="document.getElementById('imF').click()">📤 导入</span>
 <input type="file" id="imF" accept=".json" style="display:none" onchange="im(event)">
@@ -166,6 +167,8 @@ let data=ld();
 
 function sv(){
   try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}catch(e){}
+  // 同步到助手
+  try{fetch('http://localhost:18888/sync',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(function(){})}catch(e){}
   rn();
 }
 
@@ -181,6 +184,12 @@ function ex(){
   a.download="内蒙古特产看板.json";
   a.click();
   URL.revokeObjectURL(a.href);
+}
+function sy(){
+  const b=JSON.stringify(data,null,2);
+  fetch('http://127.0.0.1:18888/sync',{method:'POST',headers:{'Content-Type':'application/json'},body:b})
+    .then(r=>r.text()).then(t=>alert('同步成功!'))
+    .catch(e=>alert('同步失败: 请确保同步服务已启动\n'+e));
 }
 function im(e){
   const f=e.target.files[0];
