@@ -396,11 +396,14 @@ function ot(id){
   const sdc=t.subs.filter(s=>s.done).length,sdl=t.subs.length;
   document.getElementById("modalSub").textContent=t.phase+(sdl?" · 子任务 "+sdc+"/"+sdl:"");
   const sl=document.getElementById("subList");
-  if(!t.subs||!t.subs.length){sl.innerHTML='<div style="font-size:12px;color:var(--text-muted);padding:4px 0">暂无子任务</div>'}
-  else{sl.innerHTML=t.subs.map((s,i)=>'<div class="sub-row"><input type="checkbox"'+(s.done?" checked":"")+' onchange="ts('+i+')"><span class="sub-text'+(s.done?" done":"")+'">'+esc(s.text)+'</span><input class="result-inp" value="'+esc(s.result||"")+'" placeholder="结果" onchange="sr('+i+',this.value)"></div>').join("")}
+  if(!t.subs||!t.subs.length){t.subs=[];sl.innerHTML='<div style="font-size:12px;color:var(--text-muted);padding:4px 0">暂无子任务</div>'}
+  sl.innerHTML=t.subs.map((s,i)=>'<div class="sub-row"><input type="checkbox"'+(s.done?" checked":"")+' onchange="ts('+i+')"><span class="sub-text'+(s.done?" done":"")+'">'+esc(s.text)+'</span><input class="result-inp" value="'+esc(s.result||"")+'" placeholder="结果" onchange="sr('+i+',this.value)"><span onclick="delSub('+i+')" style="color:#999;cursor:pointer;font-size:14px;line-height:1">×</span></div>').join("")+
+      '<div style="display:flex;gap:6px;margin-top:6px"><input id="newSubInput" placeholder="新增子任务…" style="flex:1;padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;outline:none"><button onclick="addSub()" style="border:none;background:var(--green);color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-family:inherit">+ 添加</button></div>'}
   document.getElementById("modalOverlay").classList.add("show");
 }
 function cm(){document.getElementById("modalOverlay").classList.remove("show");eid=null}
+function addSub(){const t=data.tasks.find(x=>x.id===eid);if(!t)return;const inp=document.getElementById("newSubInput");const txt=inp.value.trim();if(!txt)return;if(!t.subs)t.subs=[];t.subs.push({text:txt,done:false,result:""});sv();ot(eid)}
+function delSub(i){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.subs.splice(i,1);sv();ot(eid)}
 function ts(i){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.subs[i].done=!t.subs[i].done;sv();ot(eid)}
 function sr(i,v){const t=data.tasks.find(x=>x.id===eid);if(!t)return;if(!t.subs[i].result)t.subs[i].result="";t.subs[i].result=v;sv()}
 function save(){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.title=document.getElementById("editName").value.trim()||t.title;t.status=document.getElementById("editStatus").value;t.phase=document.getElementById("editPhase").value;t.note=document.getElementById("editNote").value;sv();cm()}
