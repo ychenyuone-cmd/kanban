@@ -114,6 +114,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 <label>状态</label><select id="eS"><option value="todo">待办</option><option value="doing">进行中</option><option value="done">已完成</option></select>
 <label>阶段</label><select id="eP"></select>
 <label>备注</label><textarea id="eNo"></textarea>
+<label>规划完成时间</label><input id="eD" type="date">
 <label>子任务</label><div id="sL"></div>
 <div class="btn-row">
 <button class="btn-primary" onclick="svTask()">💾 保存</button>
@@ -246,7 +247,7 @@ function rc(){
       const sdc=x.subs.filter(s=>s.done).length,sdl=x.subs.length;
       let tags='<span class="tag">'+x.phase+'</span>';
       if(sdl)tags+='<span class="tag green">✓'+sdc+'/'+sdl+'</span>';
-      return '<div class="card" onclick="ot(\''+x.id+'\')"><div class="title">'+es(x.title)+'</div><div class="tags">'+tags+'</div></div>';
+      return '<div class="card" onclick="ot(\''+x.id+'\')"><div class="title">'+es(x.title)+'</div><div class="tags">'+tags+(x.dueDate?'<span class="tag">📅'+x.dueDate+'</span>':'')+'</div></div>';
     }).join("");
   });
   document.getElementById("tc").textContent=fi.filter(x=>x.status==="todo").length;
@@ -268,6 +269,7 @@ function ot(id){
   document.getElementById("eS").value=t.status;
   document.getElementById("eP").innerHTML=PHASES.map(p=>'<option value="'+p+'"'+(p===t.phase?'selected':'')+'>'+p+'</option>').join("");
   document.getElementById("eNo").value=t.note||"";
+  document.getElementById("eD").value=t.dueDate||"";
   const sdc=t.subs.filter(s=>s.done).length,sdl=t.subs.length;
   document.getElementById("mS").textContent=t.phase+(sdl?" · 子任务 "+sdc+"/"+sdl:"");
   const sl=document.getElementById("sL");
@@ -294,7 +296,7 @@ function as(id){const t=data.tasks.find(x=>x.id===id);if(!t)return;const inp=doc
 function ds(i){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.subs.splice(i,1);sv();ot(eid)}
 function ts(i){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.subs[i].done=!t.subs[i].done;sv();ot(eid)}
 function sr(i,v){const t=data.tasks.find(x=>x.id===eid);if(!t)return;if(!t.subs[i].result)t.subs[i].result="";t.subs[i].result=v;sv()}
-function svTask(){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.title=document.getElementById("eN").value.trim()||t.title;t.status=document.getElementById("eS").value;t.phase=document.getElementById("eP").value;t.note=document.getElementById("eNo").value;sv();cm()}
+function svTask(){const t=data.tasks.find(x=>x.id===eid);if(!t)return;t.title=document.getElementById("eN").value.trim()||t.title;t.status=document.getElementById("eS").value;t.phase=document.getElementById("eP").value;t.note=document.getElementById("eNo").value;t.dueDate=document.getElementById("eD").value;sv();cm()}
 function dl(){if(!confirm("确定删除此任务？"))return;data.tasks=data.tasks.filter(t=>t.id!==eid);sv();cm()}
 function addTask(status){
   const ids=data.tasks.map(t=>{const n=parseInt(t.id.replace("t",""));return isNaN(n)?0:n});
